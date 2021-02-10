@@ -7,7 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class GroceryList {
+public class ToDoList {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +30,11 @@ public class GroceryList {
 	private String description;
 	private Double value;
 	
-	@OneToMany(mappedBy="grocery",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="tdList",fetch=FetchType.EAGER)
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Item> items;
 
-	public GroceryList(Long id, @NotNull String name, String description, Double value, List<Item> items) {
+	public ToDoList(Long id, @NotNull String name, String description, Double value, List<Item> items) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,14 +43,13 @@ public class GroceryList {
 		this.items = items;
 	}
 
-	public GroceryList(@NotNull String name, String description, Double value, List<Item> items) {
+	public ToDoList(@NotNull String name, String description, Double value, List<Item> items) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.value = value;
 		this.items = items;
 	}
-	
 	
 	
 

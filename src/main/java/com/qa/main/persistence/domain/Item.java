@@ -24,6 +24,7 @@ public class Item {
 	private int qty;
 	private String itemPhotoURL;
 	private String description;
+	
 	public Item(Long id, @NotNull String name, @NotNull int qty, String itemPhotoURL, String description) {
 		super();
 		this.id = id;
@@ -48,8 +49,8 @@ public class Item {
 //		beverages, bakery, canned, confectionary, dairy, fresh_meat, frozen, other, pantry, produce
 //	};
 
-//	@ManyToOne
-//	private GroceryList gList=null;
+	@ManyToOne
+	private ToDoList tdList=null;
 
 	
 }
