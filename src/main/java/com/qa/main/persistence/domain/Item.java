@@ -20,23 +20,26 @@ public class Item {
 	private Long id;
 	@NotNull
 	private String name;
-	
+	@NotNull
+	private int qty;
 	private String itemPhotoURL;
 	private String description;
-	
-	public Item(Long id, @NotNull String name, String itemPhotoURL, String description) {
+	public Item(Long id, @NotNull String name, @NotNull int qty, String itemPhotoURL, String description) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.qty = qty;
 		this.itemPhotoURL = itemPhotoURL;
 		this.description = description;
 	}
-	public Item(@NotNull String name, String itemPhotoURL, String description) {
+	public Item(@NotNull String name, @NotNull int qty, String itemPhotoURL, String description) {
 		super();
 		this.name = name;
+		this.qty = qty;
 		this.itemPhotoURL = itemPhotoURL;
 		this.description = description;
 	}
+	
 	
 	
 
