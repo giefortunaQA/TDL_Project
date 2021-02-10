@@ -21,29 +21,10 @@ public class Item {
 	@NotNull
 	private String name;
 	@NotNull
-	private int qty;
-	private String itemPhotoURL;
-	private String description;
+	private boolean isDone;
 	
-	public Item(Long id, @NotNull String name, @NotNull int qty, String itemPhotoURL, String description) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.qty = qty;
-		this.itemPhotoURL = itemPhotoURL;
-		this.description = description;
-	}
-	public Item(@NotNull String name, @NotNull int qty, String itemPhotoURL, String description) {
-		super();
-		this.name = name;
-		this.qty = qty;
-		this.itemPhotoURL = itemPhotoURL;
-		this.description = description;
-	}
-	
-	
-	
-
+//	private String itemURL;
+//	private String description;
 //	@NotNull
 //	private enum category {
 //		beverages, bakery, canned, confectionary, dairy, fresh_meat, frozen, other, pantry, produce
@@ -51,6 +32,21 @@ public class Item {
 
 	@ManyToOne
 	private ToDoList tdList=null;
+
+public Item(Long id, @NotNull String name, @NotNull boolean isDone, ToDoList tdList) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.isDone = isDone;
+	this.tdList = tdList;
+}
+
+public Item(@NotNull String name, @NotNull boolean isDone, ToDoList tdList) {
+	super();
+	this.name = name;
+	this.isDone = isDone;
+	this.tdList = tdList;
+}
 
 	
 }
