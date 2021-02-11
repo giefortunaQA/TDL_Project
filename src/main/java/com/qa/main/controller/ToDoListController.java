@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=
+
 import com.qa.main.dto.ToDoListDto;
 import com.qa.main.persistence.domain.ToDoList;
 import com.qa.main.service.ToDoListService;
@@ -45,4 +46,8 @@ public class ToDoListController {
 		return ResponseEntity.ok(this.service.readById(id));
 	}
 	
+	@PutMapping("/update/{id}")
+	public ResponseEntity<ToDoListDto> update(@PathVariable Long id,@RequestBody ToDoListDto toDoListDto){
+		return new ResponseEntity<>(this.service.update(toDoListDto, id),HttpStatus.ACCEPTED);
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.qa.main.dto.ToDoListDto;
 import com.qa.main.persistence.domain.ToDoList;
 import com.qa.main.persistence.repo.ToDoListRepo;
+import com.qa.main.utils.SpringBeanUtil;
 
 @Service
 public class ToDoListService {
@@ -38,5 +39,12 @@ public class ToDoListService {
 
 	public ToDoListDto readById(Long id) {
 		return this.mapToTDLDto(this.repo.findById(id).orElseThrow());
+	}
+	
+	public ToDoListDto update(ToDoListDto toDoListDto, Long id) {
+		ToDoList calledTDL = this.repo.findById(id).orElseThrow();
+		calledTDL.setName(calledTDL.getName());
+		SpringBeanUtil.mergeNotNull(toDoListDto, calledTDL);
+		return this.mapToTDLDto(this.repo.save(calledTDL));
 	}
 }
