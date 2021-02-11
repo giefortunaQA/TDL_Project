@@ -24,7 +24,7 @@ public class Item {
 	@NotNull
 	private String name;
 	@NotNull
-	private boolean isDone;
+	private boolean done;
 
 //	private String itemURL;
 //	private String description;
@@ -36,14 +36,12 @@ public class Item {
 	@ManyToOne
 	private ToDoList tdList = null;
 
-	public Item(String name, boolean isDone) {
+	public Item(String name, boolean done, ToDoList tdList) {
 		super();
 		this.name = name;
-		this.isDone = isDone;
+		this.done = done;
+		this.tdList = tdList;
 	}
-
-
-
 
 
 }
