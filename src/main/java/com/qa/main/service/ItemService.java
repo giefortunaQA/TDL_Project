@@ -1,5 +1,8 @@
 package com.qa.main.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +31,14 @@ public class ItemService {
 	public ItemDto create(Item item) {
 		return this.mapToIDto(this.repo.save(item));
 	}
+	
+	
+	public List<ItemDto> readAll() {
+		return this.repo.findAll().stream().map(this::mapToIDto).collect(Collectors.toList());
+	}
+	
+	public ItemDto readById(Long id) {
+		return this.mapToIDto(this.repo.findById(id).orElseThrow());
+	}
+	
 }

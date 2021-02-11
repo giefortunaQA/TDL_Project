@@ -1,9 +1,13 @@
 package com.qa.main.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +33,16 @@ public class ItemController {
 	public ResponseEntity<ItemDto> create(@RequestBody Item item) {
 		ItemDto created = this.service.create(item);
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/read")
+	public ResponseEntity<List<ItemDto>> readAll(){
+		return ResponseEntity.ok(this.service.readAll());
+	}
+	
+	@GetMapping("/read/{id}")
+	public ResponseEntity<ItemDto> readById(@PathVariable Long id){
+		return ResponseEntity.ok(this.service.readById(id));
 	}
 
 }
