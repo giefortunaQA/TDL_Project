@@ -1,0 +1,28 @@
+.col{
+    border: solid 5px;
+    padding:10px;
+    background-color: blanchedalmond;
+    border-radius: 10px;
+    margin: 10px;
+}
+h1{
+    text-align: center;
+}
+
+.card{
+    padding:10px;
+    margin: 10px;
+}
+
+.msgToUser{
+    padding:10px;
+    margin: 10px;
+    color: green;
+    font-weight: bold;
+
+}
+
+.keys{
+    font-weight: bold;
+    text-transform: capitalize;
+}
