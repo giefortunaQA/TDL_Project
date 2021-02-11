@@ -47,4 +47,10 @@ public class ToDoListService {
 		SpringBeanUtil.mergeNotNull(toDoListDto, calledTDL);
 		return this.mapToTDLDto(this.repo.save(calledTDL));
 	}
+	
+	public boolean delete(Long id) {
+		this.repo.deleteById(id);
+		return !this.repo.existsById(id);
+	}
+
 }
