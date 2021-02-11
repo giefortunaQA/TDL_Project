@@ -10,7 +10,7 @@ public class Config {
 	
 	@Bean
 	@Scope("prototype")
-	public ModelMapper modelMapper() {
+	public ModelMapper mapper() {
 		return new ModelMapper();
 	}
 

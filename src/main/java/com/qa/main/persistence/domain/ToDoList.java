@@ -28,25 +28,23 @@ public class ToDoList {
 	@NotNull
 	private String name;
 	private String description;
-	
-	@OneToMany(mappedBy="tdList",fetch=FetchType.EAGER)
-	@OnDelete(action=OnDeleteAction.CASCADE)
-	private List<Item> items;
-
-	public ToDoList(Long id, @NotNull String name, String description, List<Item> items) {
+	public ToDoList(Long id, @NotNull String name, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.items = items;
 	}
-
-	public ToDoList(@NotNull String name, String description, List<Item> items) {
+	
+	public ToDoList(@NotNull String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.items = items;
 	}
+	
+	 @OneToMany(mappedBy="tdList",fetch=FetchType.EAGER)
+	 @OnDelete(action=OnDeleteAction.CASCADE) private List<Item> items;
+	 
+
 	
 	
 
