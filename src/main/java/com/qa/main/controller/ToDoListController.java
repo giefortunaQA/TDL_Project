@@ -1,15 +1,19 @@
 package com.qa.main.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+=
 import com.qa.main.dto.ToDoListDto;
 import com.qa.main.persistence.domain.ToDoList;
 import com.qa.main.service.ToDoListService;
@@ -31,6 +35,14 @@ public class ToDoListController {
 		ToDoListDto created = this.service.create(tdList);
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
+	@GetMapping("/read")
+	public ResponseEntity<List<ToDoListDto>> readAll(){
+		return ResponseEntity.ok(this.service.readAll());
+	}
 	
+	@GetMapping("/read/{id}")
+	public ResponseEntity<ToDoListDto> readById(@PathVariable Long id){
+		return ResponseEntity.ok(this.service.readById(id));
+	}
 	
 }
