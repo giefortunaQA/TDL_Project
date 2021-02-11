@@ -47,5 +47,10 @@ public class ItemService {
 		SpringBeanUtil.mergeNotNull(itemDto, calledItem);
 		return this.mapToIDto(this.repo.save(calledItem));
 	}
+	
+	public boolean delete(Long id) {
+		this.repo.deleteById(id);
+		return !this.repo.existsById(id);
+	}
 
 }
