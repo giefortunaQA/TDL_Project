@@ -22,13 +22,13 @@ public class ToDoListService {
 		return this.mapper.map(tdList, ToDoListDto.class);
 	}
 	
-
 	@Autowired
 	public ToDoListService(ToDoListRepo repo, ModelMapper mapper) {
 		super();
 		this.repo = repo;
 		this.mapper = mapper;
 	}
+	
 
 	public ToDoListDto create(ToDoList tdList) {
 		return this.mapToTDLDto(this.repo.save(tdList));
@@ -57,5 +57,6 @@ public class ToDoListService {
 	public ToDoListDto findLatest() {
 		return this.mapToTDLDto(this.repo.findLatestId());
 	}
-
+	
+	
 }

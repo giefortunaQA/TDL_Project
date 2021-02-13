@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class ItemDto {
 	private Long id;
 	private String name;
-	private boolean isDone;
+	private boolean done;
 	
 }

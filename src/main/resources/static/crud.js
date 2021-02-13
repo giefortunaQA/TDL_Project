@@ -5,8 +5,8 @@ const desc = document.querySelector("#desc")
 const listNameUpdate = document.querySelector("#nameUpdate")
 const descUpdate = document.querySelector("#descUpdate")
 const idCreateItem = document.querySelector("#listId")
-let idRead = document.querySelector("#listIdRead")
-let idUpdate = document.querySelector("#listIdUpdate")
+const idRead = document.querySelector("#listIdRead")
+const idUpdate = document.querySelector("#listIdUpdate")
 const idDelete = document.querySelector("#listIdDelete")
 const idDeleteItem = document.querySelector("#listIdDeleteItem")
 const itemName = document.querySelector("#itemName")
@@ -64,7 +64,7 @@ const printToScreen = (record, display) => {
         const newLine = document.createElement("p");
         let actualText = document.createTextNode(`${key}: ${record[key]}`);
         newLine.append(actualText);
-        display.append(newLine)
+        display.append(newLine);
     }
     
 }
@@ -157,13 +157,14 @@ const readThis=(thisId)=>{
                     console.log(data);
                     printToScreen(data, toDisplayRead);
                     toDisplayRead.style.display = "block";
+                    readAllItemsInList();
                 }).catch(err => console.log(err))
         })
 }
 
 const readById = () => {
     toDisplayRead.innerHTML = "";
-    let id = idRead.value;
+    var id = idRead.value;
     fetch(`http://localhost:9092/toDoList/read/${id}`)
         .then((res) => {
             if (res.ok != true) {
@@ -174,6 +175,7 @@ const readById = () => {
                     console.log(data);
                     printToScreen(data, toDisplayRead);
                     toDisplayRead.style.display = "block";
+                    readAllItemsInList(id);
                 }).catch(err => console.log(err))
         })
 }
@@ -230,7 +232,7 @@ const updateList = () => {
             console.log(`Request succeeded with JSON response ${data}`);
             console.log(data);
             toDisplayUpdate.innerHTML = "List Updated!";
-            toDisplayUpdate.style.display = "none";
+            toDisplayUpdate.style.display = "";
         })
         .catch((err) => console.log(err))
 }
@@ -244,7 +246,7 @@ const deleteList = () => {
         .then(data => {
             console.log(`List deleted ${data}`);
             toDisplayDelete.innerHTML = "List deleted!";
-            toDisplayDelete.style.display = "none";
+            toDisplayDelete.style.display = "";
         })
         .catch(err => console.log(err));
 }
@@ -282,7 +284,7 @@ const readItemById = () => {
                 .then((data) => {
                     console.log(data);
                     printToScreen(data, toDisplayReadItem);
-                    toDisplayReadItem.style.display = "none";
+                    toDisplayReadItem.style.display = "";
                 }).catch(err => console.log(err))
         })
 }
@@ -298,7 +300,21 @@ const readAllItems = () => {
                 .then((data) => {
                     console.log(data);
                     printAllToScreen(data, toDisplayReadItem);
-                    toDisplayReadItem.style.display = "none";
+                    toDisplayReadItem.style.display = "";
+                }).catch((err) => console.log(err))
+        })
+}
+
+const readAllItemsInList = () => {
+    fetch(`http://localhost:9092/item/read/same-list/1`)
+        .then((res) => {
+            if (res.ok != true) {
+                console.log("Status is not OK!");
+            }
+            res.json()
+                .then((data) => {
+                    printAllToScreen(data,toDisplayRead);
+                    console.log(data);
                 }).catch((err) => console.log(err))
         })
 }
@@ -312,7 +328,7 @@ const deleteItem = () => {
         .then(data => {
             console.log(`List deleted ${data}`);
             toDisplayDeleteItem.innerHTML = "Item deleted!";
-            toDisplayDeleteItem.style.display = "none";
+            toDisplayDeleteItem.style.display = "";
         })
         .catch(err => console.log(err));
 }

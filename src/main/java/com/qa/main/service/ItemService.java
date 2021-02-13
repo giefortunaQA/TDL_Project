@@ -53,4 +53,7 @@ public class ItemService {
 		return !this.repo.existsById(id);
 	}
 
+	public List<ItemDto> findItemsInList(Long id){
+		return this.repo.findItemsInList(id).stream().map(this::mapToIDto).collect(Collectors.toList());
+	}
 }

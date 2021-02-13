@@ -43,5 +43,10 @@ public class Item {
 		this.tdList = tdList;
 	}
 
+	public Item(String name, boolean done) {
+		super();
+		this.name=name;
+		this.done=done;
+	}
 
 }
