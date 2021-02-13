@@ -21,6 +21,7 @@ public class ToDoListService {
 	private ToDoListDto mapToTDLDto(ToDoList tdList) {
 		return this.mapper.map(tdList, ToDoListDto.class);
 	}
+	
 
 	@Autowired
 	public ToDoListService(ToDoListRepo repo, ModelMapper mapper) {
@@ -51,6 +52,10 @@ public class ToDoListService {
 	public boolean delete(Long id) {
 		this.repo.deleteById(id);
 		return !this.repo.existsById(id);
+	}
+	
+	public ToDoListDto findLatest() {
+		return this.mapToTDLDto(this.repo.findLatestId());
 	}
 
 }
