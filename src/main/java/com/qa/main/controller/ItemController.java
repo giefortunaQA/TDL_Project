@@ -57,7 +57,7 @@ public class ItemController {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@GetMapping("/read/same-list/{id}")
+	@GetMapping("/read/in-list/{id}")
 	public ResponseEntity<List<ItemDto>> readItems(@PathVariable Long id){
 		return ResponseEntity.ok(this.service.findItemsInList(id));
 	}

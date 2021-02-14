@@ -122,11 +122,13 @@ const createList = () => {
         .then(res => res.json())
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`);
-            addToList(data);
+            toDisplayCreate.innerHTML = `Enter id: ${data.id} to add task`;
             itemName.disabled = false;
             idCreateItem.disabled = false;
-            toDisplayCreate.innerHTML = `Enter id: ${data.id} to add task`;
-            show(toDisplayCreate);
+            
+            // show(toDisplayCreate);
+            // addToList(data);
+            // updateSidebar();
         })
         .catch((err) => console.log(err))
 }
@@ -247,6 +249,7 @@ const deleteList = () => {
             console.log(`List deleted ${data}`);
             toDisplayDelete.innerHTML = "List deleted!";
             toDisplayDelete.style.display = "";
+            updateSidebar();
         })
         .catch(err => console.log(err));
 }
