@@ -27,18 +27,15 @@ public class ToDoList {
 	
 	@NotNull
 	private String name;
-	private String description;
-	public ToDoList(Long id, @NotNull String name, String description) {
+	public ToDoList(Long id, @NotNull String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.description = description;
 	}
 	
-	public ToDoList(@NotNull String name, String description) {
+	public ToDoList(@NotNull String name) {
 		super();
 		this.name = name;
-		this.description = description;
 	}
 	
 	 @OneToMany(mappedBy="tdList",fetch=FetchType.EAGER)
