@@ -43,7 +43,6 @@ const addCheckBox = (data, location) => {
 }
 
 const printToScreenItem = (record, display) => {
-    addEditDelete(record, display);
     for (let key in record) {
         if (key == "done") {
             addCheckBox(record, display);
@@ -65,6 +64,7 @@ const printAllToScreenItem = (set, display) => {
 }
 
 const createItem = () => {
+    
     let formData = {
         name: itemName.value,
         done: false,
@@ -81,7 +81,7 @@ const createItem = () => {
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`)
             printToScreenItem(data, toDisplayCreateItem);
-            idCreateItem.style.display = "none";
+            toDisplayCreate.style.display = "none";
             hide(toDisplayCreate);
             updateSidebar();
         })

@@ -6,7 +6,7 @@ const listNameUpdate = document.querySelector("#nameUpdate")
 const idRead = document.querySelector("#listIdRead")
 const idDelete = document.querySelector("#listIdDelete")
 const updateBtn = document.getElementById("updateBtn");
-var idCreateItem;
+var idCreateItem=document.getElementById("listId");
 
 //dynamic messages/prompts
 const toDisplayCreate = document.querySelector("#createItemDiv")
@@ -131,9 +131,8 @@ const createList = () => {
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`);
             show(toDisplayCreate);
-            createItemDiv.style.display = "block";
             toDisplayCreate.innerHTML = `List created. Add task:`;
-            listName.disabled = "disabled";
+            itemName.style.display = "block";
             itemName.disabled = false;
             idCreateItem.value = data.id;
             updateSidebar();
@@ -167,8 +166,7 @@ const readById = (id) => {
                     console.log(data);
                     onlyShow(toDisplayRead);
                     printToScreen(data, toDisplayRead);
-
-                    // readAllItemsInList(id);
+                    readAllItemsInList(id);
                 }).catch(err => console.log(err))
         })
 }
@@ -265,7 +263,7 @@ const readAllItemsInList = (id) => {
                         italic.appendChild(noTask);
                         toDisplayRead.append(italic);
                     } else {
-                        // printToScreenItem(data, toDisplayRead);
+                        printToScreenItem(data, toDisplayRead);
                         console.log(data);
                     }
                 }).catch((err) => console.log(err))
