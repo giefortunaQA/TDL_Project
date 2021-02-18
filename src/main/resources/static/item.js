@@ -6,29 +6,45 @@ const itemNameUpdate = document.getElementById("itemNameUpdate")
 const itemDone = document.querySelector(".radioResult")
 
 //msg/prompts
-const toDisplayCreateItem = document.querySelector("#addedTasks")
+const toDisplayCreateItem = document.querySelector("#createItemDiv")
 const toDisplayReadItem = document.querySelector("#displayDivReadItem")
-const toDisplayUpdateItem = document.querySelector("#displayDivUpdateItem")
 const toDisplayDeleteItem = document.querySelector("#displayDivDeleteItem")
 
 //forms
 const updateItemFormDiv = document.getElementById("updateItemFormDiv")
 const updateItemForm = document.getElementById("updateItemForm");
 const addTaskToList = document.getElementById("addTaskToListForm");
+const updateItemBtn=document.getElementById("updateItemBtn");
 
+var itemId=document.getElementById("itemId");
 
-const addDelete = (data, location) => {
+const addEditDeleteItem = (data, location) => {
     //add delete
     let del = document.createElement("button");
     del.setAttribute("class", "btn");
-    del.setAttribute("data-toggle", "modal");
-    del.setAttribute("data-target", "#deleteConfirm");
     del.setAttribute("onclick", `deleteItem(${data.id})`);
     let delImg = document.createElement("img");
     delImg.src = "./img/trash.svg";
     del.appendChild(delImg);
-    del.setAttribute("title", "Delete this list")
+    del.setAttribute("title", "Delete this task")
+
+    let edit = document.createElement("button");
+    edit.setAttribute("class", "btn ");
+    edit.setAttribute("onclick", `onlyShow(updateItemFormDiv)`);
+    listNameUpdate.setAttribute("placeholder", `${data.name}`)
+    updateItemBtn.setAttribute("onclick",`setAndUpdate(${data.id})`)
+    let editImg = document.createElement("img");
+    editImg.src = "./img/pencil.svg";
+    edit.appendChild(editImg);
+    edit.setAttribute("title", "Edit this item")
+
+    location.append(edit);
     location.appendChild(del);
+}
+
+const setAndUpdate=(id)=>{
+    itemId.value=id;
+    updateItemName(itemId);
 }
 
 const addCheckBox = (data, location) => {
@@ -36,20 +52,21 @@ const addCheckBox = (data, location) => {
     box.type = "checkbox";
     box.setAttribute("class", "form-check form-check-input");
     box.id = "flexCheckDefault";
-    box.onclick = `updateItemStatus(${!data.done})`
+    box.setAttribute("onclick", `updateItemStatus(${data.id},${!data.done})`);
     location.append(box)
     return box;
-
 }
+
+
 
 const printToScreenItem = (record, display) => {
     for (let key in record) {
-        if (key == "done") {
-            addCheckBox(record, display);
-        } else if (key == "name") {
+        if (key == "name") {
             const newLine = document.createElement("p");
             let actualText = document.createTextNode(`${record[key]}`);
             newLine.append(actualText);
+            addEditDeleteItem(record, display);
+            addCheckBox(record, display);
             display.append(newLine);
         }
     }
@@ -64,11 +81,11 @@ const printAllToScreenItem = (set, display) => {
 }
 
 const createItem = () => {
-    
+
     let formData = {
         name: itemName.value,
         done: false,
-        tdList: { id: idCreateItem.value }
+        tdList: { id: listId.value }
     }
     fetch("http://localhost:9092/item/create", {
         method: 'post',
@@ -81,16 +98,15 @@ const createItem = () => {
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`)
             printToScreenItem(data, toDisplayCreateItem);
-            toDisplayCreate.style.display = "none";
             hide(toDisplayCreate);
+            readById(listId.value);
             updateSidebar();
         })
         .catch((err) => console.log(err))
 }
 
-const readItemById = () => {
-    toDisplayReadItem.innerHTML = "";
-    const id = idReadItem.value;
+
+const readItemById = (id) => {
     fetch(`http://localhost:9092/item/read/${id}`)
         .then((res) => {
             if (res.ok != true) {
@@ -99,8 +115,8 @@ const readItemById = () => {
             res.json()
                 .then((data) => {
                     console.log(data);
-                    printToScreen(data, toDisplayReadItem);
-                    toDisplayReadItem.style.display = "";
+                    onlyShow(toDisplayRead);
+                    printToScreenItem(data, toDisplayRead);
                 }).catch(err => console.log(err))
         })
 }
@@ -116,7 +132,6 @@ const readAllItems = () => {
                 .then((data) => {
                     console.log(data);
                     printAllToScreen(data, toDisplayReadItem);
-                    toDisplayReadItem.style.display = "";
                 }).catch((err) => console.log(err))
         })
 }
@@ -126,7 +141,7 @@ const updateItemName = (id) => {
     let formData = {
         name: itemNameUpdate.value,
     }
-    fetch(`http://localhost:9092/toDoList/update/${id}`, {
+    fetch(`http://localhost:9092/item/update/${id}`, {
         method: 'put',
         headers: {
             "Content-type": "application/json"
@@ -138,15 +153,16 @@ const updateItemName = (id) => {
             console.log(`Request succeeded with JSON response ${data}`);
             console.log(data);
             onlyShow(updateItemFormDiv);
-            toDisplayUpdate.innerHTML = "List Updated!";
-            nameUpdate.diabled = "disabled";
-            updateSidebar();
-
+            readById(listId.value);
         })
         .catch((err) => console.log(err))
 }
-const updateItemStatus = (id) => {
-    fetch(`http://localhost:9092/toDoList/update/${id}`, {
+const updateItemStatus = (id, status) => {
+    let formData = {
+        done: status
+    }
+
+    fetch(`http://localhost:9092/item/update/${id}`, {
         method: 'put',
         headers: {
             "Content-type": "application/json"
@@ -157,27 +173,21 @@ const updateItemStatus = (id) => {
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`);
             console.log(data);
-            onlyShow(updateItemFormDiv);
-            toDisplayUpdate.innerHTML = "List Updated!";
-            nameUpdate.diabled = "disabled";
-            updateSidebar();
+            let box = addCheckBox(data, toDisplayRead);
+            box.checked = !data.done;
 
         })
         .catch((err) => console.log(err))
 }
-const deleteItem = () => {
-    const idVal = idDeleteItem.value;
-    fetch(`http://localhost:9092/item/delete/${idVal}`, {
+const deleteItem = (id) => {
+    fetch(`http://localhost:9092/item/delete/${id}`, {
         method: 'delete'
     })
         .then(res => JSON.stringify(res))
         .then(data => {
-            console.log(`List deleted ${data}`);
-            toDisplayDeleteItem.innerHTML = "Item deleted!";
-            toDisplayDeleteItem.style.display = "";
+            console.log(`Item deleted ${data}`);
+            
         })
         .catch(err => console.log(err));
 }
-
-
 

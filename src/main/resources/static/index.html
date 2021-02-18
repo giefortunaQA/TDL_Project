@@ -23,7 +23,7 @@
 				<p>
 					<button class="btn btn-light noBg" onclick="readAllLists()">
 						<img src="./img/eyeglasses.svg" alt="read">
-						Open all lists
+						Show all lists
 					</button>
 				</p>
 				<p>
@@ -36,7 +36,7 @@
 				</p>
 				<h4>
 					Your Lists
-					<button class="btn btn-light noBg refreshBtn" onclick="updateSidebar()">
+					<button class="btn  refreshBtn" onclick="updateSidebar()">
 						<img src="./img/clock-history.svg" alt="refresh">
 					</button>
 				</h4>
@@ -63,51 +63,23 @@
 								<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
 							</button></span>
 					</form>
+					
 					<div id="createItemDiv" class="msg" placeholder="No Tasks">
 					</div>
-					<div id="addedTasks">
-					</div>
-
-					<!-- CREATE TASK IN LIST -->
-					<input type="text" id="listId" placeholder="Enter id" style="display:none;">
-					<form id="addTaskToListForm">
-						<input type="text" id="itemName" placeholder="New task" disabled="disbled">
-						<button type="button" class="btn btn-light noBg formBtn" onclick="createItem()">
-							<img src="./img/check2.svg" alt="add" tooltip="Add task">
-						</button>
-					</form>
-
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button type="button" onclick="hide(createFormDiv)"
-							class="btn btn-success formBtn">Done</button>
-						<button type="button" onclick="reset(createForm)" class="btn btn-dark formBtn">Clear</button>
-					</div>
+						<button type="button" onclick="reset(createForm)" class="btn btn-dark formBtn">Create another list</button>
+					</div> -->
 
 				</div>
 
 				<!-- READ CARD -->
 				<div class="card" id="displayDivRead">
 				</div>
-				<div id="updateModal" class="modal fade" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title">Edit this List</h4>
-							</div>
-							<div class="modal-body">
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Confirm
-									Delete</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
+				
 				<!-- UPDATE CARD -->
 				<div class="card" id="updateFormDiv">
-					<h3>Update name</h3>
+					<h3>Update list name</h3>
 					<form id="updateForm">
 						<input type="text" class="form-control" id="nameUpdate">
 						<button type="button" class="btn btn-light formBtn" id="updateBtn">
@@ -120,20 +92,25 @@
 				<!-- DELETE CARD -->
 				<div id="displayDivDelete" class="card msg">
 				</div>
+
+				<!-- CREATE ITEM SEPARATE -->
+				<div class="card" id="createItemSeparate" style="display: none;">
+					<input type="text" id="listId" style="display: none;">
+					<input type="text" id="itemName" placeholder="New task">
+						<button type="button" class="btn btn-light noBg formBtn" id="updateItemBtn">
+							<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
+						</button>
+				</div>
 				<!-- UPDATE ITEM -->
 				<div class="card" id="updateItemFormDiv">
+					<h3>Update task name</h3>
 					<form id="updateItemForm">
+						<input type="text" id="itemId" style="display: none;">
 						<input type="text" id="itemNameUpdate">
 						<button type="button" class="btn btn-light noBg formBtn">
-							<img src="./img/check2.svg" alt="add" tooltip="Add task">
+							<img src="./img/check2.svg" alt="update" tooltip="Update Task" onclick="updateItemName()">
 						</button>
-						<input class=" form-check form-check-input" type="checkbox" value="" id="flexCheckDefault"
-							title="Tick if task is done">
-						<label class="form-check form-check-label" for="flexCheckDefault">
-						</label>
 					</form>
-					<div id="displayDivUpdateItem">
-					</div>
 				</div>
 
 
