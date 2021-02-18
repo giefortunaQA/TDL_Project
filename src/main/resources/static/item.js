@@ -34,7 +34,7 @@ const addEditDeleteItem = (data, location) => {
     edit.setAttribute("onclick", `showAndSet(${data.id},updateItemFormDiv)`);
     listNameUpdate.setAttribute("placeholder", `${data.name}`)
     itemId.value = data.id;
-    updateItemBtn.setAttribute("onclick", `updateItem(${itemId.value})`);
+    updateItemBtn.setAttribute("onclick", `updateItem()`);
     let editImg = document.createElement("img");
     editImg.src = "./img/pencil.svg";
     edit.appendChild(editImg);
@@ -52,19 +52,15 @@ const showAndSet = (id, form) => {
 const printToScreenItem = (record, display) => {
     addEditDeleteItem(record, display);
     let actualText = document.createTextNode(`${record.name}`);
-    display.append(actualText);
-    let italic = document.createElement("i");
     console.log(record.done);
-    if (record.done == "true") {
-        let msg = document.createTextNode("     (done!)")
-        italic.appendChild(msg);
-        display.append(italic);
-    } else {
-        let msg = document.createTextNode("     (not done.)")
-        italic.appendChild(msg);
-        display.append(italic);
+    if (record.done == 1) {
+        let strike=document.createElement("strike");
+        strike.appendChild(actualText);
+        display.append(strike);
+    } else{
+        display.append(actualText);
     }
-
+    
 }
 
 const printAllToScreenItem = (set, display) => {
@@ -75,13 +71,7 @@ const printAllToScreenItem = (set, display) => {
     // display.appendChild(document.createElement("hr"));
 }
 
-const toBool = (yesOrNo) => {
-    if (yesOrNo == "yes") {
-        return true;
-    } else if (yesOrNo == "no") {
-        return false;
-    }
-}
+
 const createItem = () => {
     let isDone = Boolean;
     if (itemDone.value == "yes") {
@@ -145,7 +135,8 @@ const readAllItems = () => {
         })
 }
 
-const updateItem = (id) => {
+const updateItem = () => {
+    let id=itemId.value;
     let isDone = Boolean;
     if (itemDoneUpdate.value == "yes") {
         isDone = true;

@@ -97,3 +97,6 @@ h3{
       color:grey
   } */
 
+.done{
+    text-decoration: line-through;
+}
