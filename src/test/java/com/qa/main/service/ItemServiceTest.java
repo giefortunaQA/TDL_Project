@@ -106,5 +106,16 @@ public class ItemServiceTest {
 		assertThat(this.service.delete(id)).isEqualTo(true);
 		verify(this.repo,times(1)).existsById(id);
 	}
-	
+
+	@Test
+	public void testFindItemsInList() throws Exception{
+		Long listId=1L;
+		List<Item> testItems=List.of(testItem1,testItem2);
+		List<ItemDto> testItemsAsDtos= testItems.stream().map(this::mapToIDto).collect(Collectors.toList());
+		//ru
+		when(this.repo.findItemsInList(listId)).thenReturn(testItems);
+		//
+		assertThat(this.service.findItemsInList(listId)).isEqualTo(testItemsAsDtos);
+		verify(this.repo,times(1)).findItemsInList(listId);
+	}
 }
