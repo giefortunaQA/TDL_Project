@@ -94,8 +94,12 @@ const addPlus = (location) => {
     location.appendChild(plus);
 }
 
+//with icons
 const printToScreen = (record, display) => {
     addEditDelete(record, display);
+    printToScreenOnly(record,display);
+}
+const printToScreenOnly=(record,display)=>{
     for (let key in record) {
         if (key != "id") {
             const newLine = document.createElement("p");
@@ -104,14 +108,14 @@ const printToScreen = (record, display) => {
             newLine.append(btn);
             display.append(newLine);
         }
-        
     }
 }
+
 
 const printAllToScreen = (set, display) => {
     for (let record of set) {
         display.appendChild(document.createElement("hr"));
-        printToScreen(record, display);
+        printToScreenOnly(record, display);
         console.log(record.id);
     }
     display.appendChild(document.createElement("hr"));
@@ -163,9 +167,6 @@ const createList = () => {
         .then(data => {
             console.log(`Request succeeded with JSON response ${data}`);
             show(toDisplayCreate);
-            toDisplayCreate.innerHTML = `List created with id: ${data.id}. Add tasks:`;
-            itemName.style.display = "block";
-            itemName.disabled = false;
             readById(data.id);
             show(createItemSeparate);
             updateSidebar();
@@ -199,8 +200,8 @@ const readById = (id) => {
                     console.log(data);
                     onlyShow(toDisplayRead);
                     printToScreen(data, toDisplayRead);
-                  
                     setListId(id);
+                    readAllItemsInList(id);
                 }).catch(err => console.log(err))
         })
 }
@@ -216,7 +217,15 @@ const readAllLists = () => {
                 .then((data) => {
                     console.log(data);
                     onlyShow(toDisplayRead);
+                   if (data.length==0){
+                       let italic=document.createElement("i");
+                       let text=document.createTextNode("No Lists.")
+                       italic.appendChild(text);
+                       toDisplayRead.appendChild(italic);
+                   }
+                   else{
                     printAllToScreen(data, toDisplayRead);
+                   }
                 }).catch((err) => console.log(err))
         })
 }

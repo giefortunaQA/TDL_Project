@@ -21,13 +21,13 @@
 			<div id="mySidepanel" class="sidepanel">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				<p>
-					<button class="btn btn-light noBg" onclick="readAllLists()">
+					<button class="btn" onclick="readAllLists()">
 						<img src="./img/eyeglasses.svg" alt="read">
 						Show all lists
 					</button>
 				</p>
 				<p>
-					<button type="submit" onclick="onlyShow(createFormDiv)" class="btn btn-light noBg formBtn">
+					<button type="submit" onclick="onlyShow(createFormDiv)" class="btn formBtn">
 						<img src="./img/plus-circle.svg" alt="plus"> New list
 					</button>
 				</p>
@@ -53,7 +53,7 @@
 			<div class="container">
 				<!-- CREATE CARD -->
 				<div class="card" id="createFormDiv">
-					<button type="reset" onclick="hide(createForm)" class="formBtn" id="closeBtn">
+					<button type="reset" onclick="hide(createForm)" class="btn formBtn">
 						<img src="./img/x.svg" alt="close">
 					</button>
 					<form id="createForm">
@@ -63,20 +63,16 @@
 								<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
 							</button></span>
 					</form>
-					
+
 					<div id="createItemDiv" class="msg" placeholder="No Tasks">
 					</div>
-					<!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button type="button" onclick="hide(createFormDiv)"
-						<button type="button" onclick="reset(createForm)" class="btn btn-dark formBtn">Create another list</button>
-					</div> -->
 
 				</div>
 
 				<!-- READ CARD -->
 				<div class="card" id="displayDivRead">
 				</div>
-				
+
 				<!-- UPDATE CARD -->
 				<div class="card" id="updateFormDiv">
 					<h3>Update list name</h3>
@@ -97,18 +93,20 @@
 				<div class="card" id="createItemSeparate" style="display: none;">
 					<input type="text" id="listId" style="display: none;">
 					<input type="text" id="itemName" placeholder="New task">
-						<button type="button" class="btn btn-light noBg formBtn" id="updateItemBtn">
-							<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
-						</button>
+					<input type="text" id="itemDone" placeholder="Done? yes or no">
+					<button type="button" class="btn formBtn" onclick="createItem()">
+						<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
+					</button>
 				</div>
 				<!-- UPDATE ITEM -->
 				<div class="card" id="updateItemFormDiv">
-					<h3>Update task name</h3>
+					<h3>Update task</h3>
 					<form id="updateItemForm">
-						<input type="text" id="itemId" style="display: none;">
+						<input type="text" id="itemId">
 						<input type="text" id="itemNameUpdate">
-						<button type="button" class="btn btn-light noBg formBtn">
-							<img src="./img/check2.svg" alt="update" tooltip="Update Task" onclick="updateItemName()">
+						<input type="text" id="itemDoneUpdate" placeholder="Done? yes or no">
+						<button type="button" class="btn formBtn">
+							<img src="./img/check2.svg" alt="update" tooltip="Update Task" id="updateItemBtn">
 						</button>
 					</form>
 				</div>
