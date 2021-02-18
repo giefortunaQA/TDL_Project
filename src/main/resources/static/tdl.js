@@ -97,9 +97,9 @@ const addPlus = (location) => {
 //with icons
 const printToScreen = (record, display) => {
     addEditDelete(record, display);
-    printToScreenOnly(record,display);
+    printToScreenOnly(record, display);
 }
-const printToScreenOnly=(record,display)=>{
+const printToScreenOnly = (record, display) => {
     for (let key in record) {
         if (key != "id") {
             const newLine = document.createElement("p");
@@ -142,12 +142,21 @@ const updateSidebar = () => {
             }
             res.json()
                 .then((data) => {
-                    console.log(data);
-                    for (let record of data) {
-                        addToSidebar(record);
-                        sideBarList.appendChild(document.createElement("br"))
-                        console.log("Sidebar updated.");
+                    if (data.length == 0) {
+                        let italic = document.createElement("i");
+                        let text = document.createTextNode("No Lists.")
+                        italic.appendChild(text);
+                        sideBarList.appendChild(italic);
+                        console.log();
                     }
+                    else {
+                        for (let record of data) {
+                            addToSidebar(record);
+                            sideBarList.appendChild(document.createElement("br"))
+
+                        }
+                    }
+                    console.log("Sidebar updated.");
                 }).catch((err) => console.log(err))
         })
 }
@@ -217,15 +226,15 @@ const readAllLists = () => {
                 .then((data) => {
                     console.log(data);
                     onlyShow(toDisplayRead);
-                   if (data.length==0){
-                       let italic=document.createElement("i");
-                       let text=document.createTextNode("No Lists.")
-                       italic.appendChild(text);
-                       toDisplayRead.appendChild(italic);
-                   }
-                   else{
-                    printAllToScreen(data, toDisplayRead);
-                   }
+                    if (data.length == 0) {
+                        let italic = document.createElement("i");
+                        let text = document.createTextNode("No Lists.")
+                        italic.appendChild(text);
+                        toDisplayRead.appendChild(italic);
+                    }
+                    else {
+                        printAllToScreen(data, toDisplayRead);
+                    }
                 }).catch((err) => console.log(err))
         })
 }
@@ -256,6 +265,7 @@ const updateList = (id) => {
 }
 
 const deleteList = (idVal) => {
+    toDisplayDelete.innerHTML = "";
     fetch(`http://localhost:9092/toDoList/delete/${idVal}`, {
         method: 'delete'
     })

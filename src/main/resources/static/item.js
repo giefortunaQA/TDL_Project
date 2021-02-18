@@ -4,7 +4,7 @@
 const itemName = document.querySelector("#itemName")
 const itemNameUpdate = document.getElementById("itemNameUpdate")
 const itemDone = document.querySelector("#itemDone")
-const itemDoneUpdate=document.getElementById("itemDoneUpdate")
+const itemDoneUpdate = document.getElementById("itemDoneUpdate")
 
 //msg/prompts
 const toDisplayCreateItem = document.querySelector("#createItemDiv")
@@ -33,7 +33,7 @@ const addEditDeleteItem = (data, location) => {
     edit.setAttribute("class", "btn ");
     edit.setAttribute("onclick", `showAndSet(${data.id},updateItemFormDiv)`);
     listNameUpdate.setAttribute("placeholder", `${data.name}`)
-    itemId.value=data.id;
+    itemId.value = data.id;
     updateItemBtn.setAttribute("onclick", `updateItem(${itemId.value})`);
     let editImg = document.createElement("img");
     editImg.src = "./img/pencil.svg";
@@ -43,44 +43,52 @@ const addEditDeleteItem = (data, location) => {
     location.append(edit);
     location.appendChild(del);
 }
-const showAndSet=(id,form)=>{
+const showAndSet = (id, form) => {
     onlyShow(form);
-    itemId.value=id;
+    itemId.value = id;
 }
 
 
 const printToScreenItem = (record, display) => {
-    for (let key in record) {
-        if (key == "name") {
-            let actualText = document.createTextNode(`${record[key]}`);
-            addEditDeleteItem(record, display);
-            display.append(actualText);
-        }
+    addEditDeleteItem(record, display);
+    let actualText = document.createTextNode(`${record.name}`);
+    display.append(actualText);
+    let italic = document.createElement("i");
+    console.log(record.done);
+    if (record.done == "true") {
+        let msg = document.createTextNode("     (done!)")
+        italic.appendChild(msg);
+        display.append(italic);
+    } else {
+        let msg = document.createTextNode("     (not done.)")
+        italic.appendChild(msg);
+        display.append(italic);
     }
+
 }
 
 const printAllToScreenItem = (set, display) => {
     for (let record of set) {
-        display.appendChild(document.createElement("hr"));
+        display.appendChild(document.createElement("br"));
         printToScreenItem(record, display);
     }
-    display.appendChild(document.createElement("hr"));
+    // display.appendChild(document.createElement("hr"));
 }
 
-const toBool=(yesOrNo)=>{
-    if (yesOrNo=="yes"){
+const toBool = (yesOrNo) => {
+    if (yesOrNo == "yes") {
         return true;
-    } else if(yesOrNo=="no") {
+    } else if (yesOrNo == "no") {
         return false;
-    } 
+    }
 }
 const createItem = () => {
-    let isDone=Boolean;
-    if (itemDone.value=="yes"){
-        isDone=true;
-    }else if (itemDone.value==no){
-        isDone=false;
-    }else{
+    let isDone = Boolean;
+    if (itemDone.value == "yes") {
+        isDone = true;
+    } else if (itemDone.value == "no") {
+        isDone = false;
+    } else {
         alert("Input invalid. Please type yes or no.")
         return false;
     }
@@ -138,12 +146,12 @@ const readAllItems = () => {
 }
 
 const updateItem = (id) => {
-    let isDone=Boolean;
-    if (itemDoneUpdate.value=="yes"){
-        isDone=true;
-    }else if (itemDoneUpdate.value=="no"){
-        isDone=false;
-    }else{
+    let isDone = Boolean;
+    if (itemDoneUpdate.value == "yes") {
+        isDone = true;
+    } else if (itemDoneUpdate.value == "no") {
+        isDone = false;
+    } else {
         alert("Input invalid. Please type yes or no.")
         return false;
     }
