@@ -31,8 +31,8 @@ public class ItemServiceTest {
 	@MockBean
 	private ItemRepo repo;
 	
-	@MockBean
-	private ModelMapper mapper;
+	
+	private ModelMapper mapper=new ModelMapper();
 	
 	private ItemDto mapToIDto(Item item) {
 		return this.mapper.map(item, ItemDto.class);
@@ -43,6 +43,10 @@ public class ItemServiceTest {
 	private Item testItem1=new Item("Test Item 1",false);
 	private Item testItem2=new Item("Test Item 2",false);
 	private final ToDoList testList1=new ToDoList("Test List 1");
+	private final ToDoList prePopList1=new ToDoList(1L,"Prepopulated List 1");
+	private final ItemDto prePopItem1AsDto=new ItemDto(1L,"Prepopulated Item 1",false);
+	private final ItemDto prePopItem2AsDto=new ItemDto(2L,"Prepopulated Item 2",false);
+	private final List<ItemDto> prePopItems=List.of(prePopItem1AsDto,prePopItem2AsDto);
 	
 	@Test
 	public void testCreate() throws Exception{
@@ -82,28 +86,38 @@ public class ItemServiceTest {
 		
 	}
 	
-//	@Test
-//	public void testUpdate() throws Exception{
-//		//re
-//		Long id=1L;
-//		ToDoList updated=new ToDoList(1L,"Updated List 1");
-//		ToDoListDto updatedAsDto=mapToTDLDto(updated);
-//		//ru
-//		when(this.repo.findById(id)).thenReturn(Optional.of(testList1));
-//		when(this.repo.save(updated)).thenReturn(updated);
-//		//a
-//		assertThat(this.service.update(updatedAsDto, id)).isEqualTo(updatedAsDto);
-//		verify(this.repo,times(1)).findById(id);
-//		verify(this.repo,times(1)).save(updated);
-//	}
+	@Test
+	public void testUpdate() throws Exception{
+		//re
+		Long id=1L;
+		Item toUpdate=new Item(1L,"Prepopoulated Item 1 - Updated",false,prePopList1);
+		ItemDto toUpdateDto=this.mapToIDto(toUpdate);
+		Item target=new Item(1L,"Prepopoulated Item 1",false,prePopList1);
+		//ru
+		when(this.repo.findById(id)).thenReturn(Optional.of(target));
+		when(this.repo.save(toUpdate)).thenReturn(toUpdate);
+		//a
+		assertThat(this.service.update(toUpdateDto, id)).isEqualTo(toUpdateDto);
+		verify(this.repo,times(1)).findById(id);
+		verify(this.repo,times(1)).save(toUpdate);
+	}
 	
 	@Test
-	public void testDelete() throws Exception{
+	public void testDeletePass() throws Exception{
 		Long id=1L;
 		//ru
 		when(this.repo.existsById(id)).thenReturn(false);
 		//a
 		assertThat(this.service.delete(id)).isEqualTo(true);
+		verify(this.repo,times(1)).existsById(id);
+	}
+	@Test
+	public void testDeleteFail() throws Exception{
+		Long id=1L;
+		//ru
+		when(this.repo.existsById(id)).thenReturn(true);
+		//a
+		assertThat(this.service.delete(id)).isEqualTo(false);
 		verify(this.repo,times(1)).existsById(id);
 	}
 

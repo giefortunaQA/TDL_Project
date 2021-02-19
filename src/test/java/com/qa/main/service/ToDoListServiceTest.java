@@ -83,28 +83,30 @@ public class ToDoListServiceTest {
 		
 	}
 	
-//	@Test
-//	public void testUpdate() throws Exception{
-//		//re
-//		Long id=1L;
-//		ToDoList updated=new ToDoList(1L,"Updated List 1");
-//		ToDoListDto updatedAsDto=mapToTDLDto(updated);
-//		//ru
-//		when(this.repo.findById(id)).thenReturn(Optional.of(testList1));
-//		when(this.repo.save(updated)).thenReturn(updated);
-//		//a
-//		assertThat(this.service.update(updatedAsDto, id)).isEqualTo(updatedAsDto);
-//		verify(this.repo,times(1)).findById(id);
-//		verify(this.repo,times(1)).save(updated);
-//	}
+	@Test
+	public void testUpdate() throws Exception{
+		ToDoList toUpdate=new ToDoList(1L,"Prepopoulated List 1 - Updated");
+		ToDoListDto toUpdateDto=this.mapToTDLDto(toUpdate);
+		ToDoList target=new ToDoList(1L,"Prepopoulated List 1");
+		Long id=target.getId();
+		//ru
+		when(this.repo.findById(id)).thenReturn(Optional.of(target));
+		when(this.repo.save(toUpdate)).thenReturn(toUpdate);
+		//a
+		assertThat(this.service.update(toUpdateDto, id)).isEqualTo(toUpdateDto);
+		verify(this.repo,times(1)).findById(id);
+		verify(this.repo,times(1)).save(toUpdate);
+	}
 	
 	@Test
-	public void testDelete() throws Exception{
+	public void testDeleteFail() throws Exception{
 		Long id=1L;
 		//ru
-		when(this.repo.existsById(id)).thenReturn(false);
+		when(this.repo.existsById(id)).thenReturn(true);
 		//a
-		assertThat(this.service.delete(id)).isEqualTo(true);
+		assertThat(this.service.delete(id)).isEqualTo(false);
 		verify(this.repo,times(1)).existsById(id);
 	}
+	
+	
 }

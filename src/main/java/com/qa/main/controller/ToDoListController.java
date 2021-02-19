@@ -58,10 +58,5 @@ public class ToDoListController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/latest")
-	public ResponseEntity<ToDoListDto> findLatestId(){
-		return ResponseEntity.ok(this.service.findLatest());
-	}
-	
 	
 }
