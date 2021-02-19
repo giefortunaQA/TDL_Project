@@ -7,8 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +38,18 @@ public class ItemServiceTest {
 	
 	
 	//class resources
-	private Item testItem1=new Item("Test Item 1",false);
-	private Item testItem2=new Item("Test Item 2",false);
-	private final ToDoList testList1=new ToDoList("Test List 1");
 	private final ToDoList prePopList1=new ToDoList(1L,"Prepopulated List 1");
+	private final Item prePopItem1=new Item(1L,"Prepopulated Item 1",false,prePopList1);
+	private final Item prePopItem2=new Item(2L,"Prepopulated Item 2",false,prePopList1);
+	private final List<Item> prePopItemsPojo=List.of(prePopItem1,prePopItem2);
 	private final ItemDto prePopItem1AsDto=new ItemDto(1L,"Prepopulated Item 1",false);
 	private final ItemDto prePopItem2AsDto=new ItemDto(2L,"Prepopulated Item 2",false);
 	private final List<ItemDto> prePopItems=List.of(prePopItem1AsDto,prePopItem2AsDto);
 	
 	@Test
 	public void testCreate() throws Exception{
-		Item toCreate=new Item("Newly created item",false,testList1);
-		Item created=new Item(3L,"Newly created item",false,testList1);
-		
+		Item toCreate=new Item("Newly created item",false,prePopList1);
+		Item created=new Item(3L,"Newly created item",false,prePopList1);
 		//rules
 		when(this.repo.save(toCreate)).thenReturn(created);
 		//actions
@@ -64,31 +61,22 @@ public class ItemServiceTest {
 	
 	@Test
 	public void testReadAll() throws Exception{
-		//re
-		List<Item> testItems=List.of(testItem1,testItem2);
-		List<ItemDto> testItemsAsDtos= testItems.stream().map(this::mapToIDto).collect(Collectors.toList());
-		//ru
-		when(this.repo.findAll()).thenReturn(testItems);
-		//a
-		assertThat(this.service.readAll()).isEqualTo(testItemsAsDtos);
+		when(this.repo.findAll()).thenReturn(prePopItemsPojo);
+		assertThat(this.service.readAll()).isEqualTo(prePopItems);
 		verify(this.repo,times(1)).findAll();
-		}
+	}
 	
 	@Test
 	public void testReadById() throws Exception{
-		//re
 		Long id=1L;
-		//ru
-		when(this.repo.findById(id)).thenReturn(Optional.of(testItem1));
-		//a
-		assertThat(this.service.readById(id)).isEqualTo(this.mapToIDto(testItem1));
+		when(this.repo.findById(id)).thenReturn(Optional.of(prePopItem1));
+		assertThat(this.service.readById(id)).isEqualTo(prePopItem1AsDto);
 		verify(this.repo,times(1)).findById(id);
 		
 	}
 	
 	@Test
 	public void testUpdate() throws Exception{
-		//re
 		Long id=1L;
 		Item toUpdate=new Item(1L,"Prepopoulated Item 1 - Updated",false,prePopList1);
 		ItemDto toUpdateDto=this.mapToIDto(toUpdate);
@@ -124,12 +112,9 @@ public class ItemServiceTest {
 	@Test
 	public void testFindItemsInList() throws Exception{
 		Long listId=1L;
-		List<Item> testItems=List.of(testItem1,testItem2);
-		List<ItemDto> testItemsAsDtos= testItems.stream().map(this::mapToIDto).collect(Collectors.toList());
-		//ru
-		when(this.repo.findItemsInList(listId)).thenReturn(testItems);
+		when(this.repo.findItemsInList(listId)).thenReturn(prePopItemsPojo);
 		//
-		assertThat(this.service.findItemsInList(listId)).isEqualTo(testItemsAsDtos);
+		assertThat(this.service.findItemsInList(listId)).isEqualTo(prePopItems);
 		verify(this.repo,times(1)).findItemsInList(listId);
 	}
 }

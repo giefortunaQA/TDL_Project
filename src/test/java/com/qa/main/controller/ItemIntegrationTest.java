@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.main.dto.ItemDto;
-import com.qa.main.dto.ToDoListDto;
 import com.qa.main.persistence.domain.Item;
 import com.qa.main.persistence.domain.ToDoList;
 
@@ -104,9 +103,8 @@ public class ItemIntegrationTest {
 //	@Test
 //	public void testDeleteFail() throws Exception{
 //		RequestBuilder request=delete(URI+"/delete/1000");
-//		ResultMatcher confirmStatus=status().isInternalServerError();
-////		ResultMatcher confirmBody=content().string("");.andExpect(confirmBody)
-//		this.mvc.perform(request).andExpect(confirmStatus);
+//		MockServerClientHttpResponse
+//		this.mvc.perform(request);
 //	}
 	
 	@Test

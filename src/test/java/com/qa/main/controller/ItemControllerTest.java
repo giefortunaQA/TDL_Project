@@ -25,11 +25,11 @@ public class ItemControllerTest {
 
 	@Autowired
 	private ItemController controller;
-	
+
 	@MockBean
 	private ItemService service;
-	
-	private static final ModelMapper mapper=new ModelMapper();
+
+	private static final ModelMapper mapper = new ModelMapper();
 
 	private ItemDto mapToIDto(Item item) {
 		return ItemControllerTest.mapper.map(item, ItemDto.class);
