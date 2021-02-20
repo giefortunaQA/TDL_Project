@@ -1,9 +1,12 @@
 package com.qa.acceptance;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
@@ -84,11 +87,11 @@ public class WebAppTestSetup {
 	
 	public void readFirstListById(){
 		refreshBtn.click();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.attributeContains(yourList1Btn, "display", "block"));
 		yourList1Btn.click();
 	}
 	
 	public void update(String name) {
-		editBtn.click();
 		listNameUpdate.sendKeys(name);
 		updateBtn.click();
 	}
