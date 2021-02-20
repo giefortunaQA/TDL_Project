@@ -4,13 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
 
 @Data
 public class WebAppTestSetup {
 
-	public final static String URL="http://127.0.0.1:5500/src/main/resources/static/";
+	public final static String URL="http://127.0.0.1:5500/src/main/resources/static/index.html";
+	@Autowired
 	private WebDriver driver;
 	
 	

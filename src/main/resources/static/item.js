@@ -90,7 +90,7 @@ const createItem = () => {
 		done: isDone,
 		tdList: { id: listId.value }
 	}
-	fetch("http://localhost:9092/item/create", {
+	fetch("http://localhost:9090/item/create", {
 		method: 'post',
 		headers: {
 			"Content-type": "application/json"
@@ -109,7 +109,7 @@ const createItem = () => {
 
 
 const readItemById = (id) => {
-	fetch(`http://localhost:9092/item/read/${id}`)
+	fetch(`http://localhost:9090/item/read/${id}`)
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -125,7 +125,7 @@ const readItemById = (id) => {
 
 const readAllItems = () => {
 	toDisplayReadItem.innerHTML = "";
-	fetch("http://localhost:9092/item/read")
+	fetch("http://localhost:9090/item/read")
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -156,7 +156,7 @@ const updateItem = () => {
 	if (itemNameUpdate.value!=""){
 		formData.name=itemNameUpdate.value;
 	}
-	fetch(`http://localhost:9092/item/update/${id}`, {
+	fetch(`http://localhost:9090/item/update/${id}`, {
 		method: 'put',
 		headers: {
 			"Content-type": "application/json"
@@ -174,7 +174,7 @@ const updateItem = () => {
 }
 
 const deleteItem = (id) => {
-	fetch(`http://localhost:9092/item/delete/${id}`, {
+	fetch(`http://localhost:9090/item/delete/${id}`, {
 		method: 'delete'
 	})
 		.then(res => JSON.stringify(res))
