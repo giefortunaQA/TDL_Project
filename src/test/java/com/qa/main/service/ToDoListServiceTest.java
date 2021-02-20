@@ -80,7 +80,7 @@ public class ToDoListServiceTest {
 		//a
 		assertThat(this.service.readById(id)).isEqualTo(this.mapToTDLDto(testList1));
 		verify(this.repo,times(1)).findById(id);
-		
+	}
 
 	@Test
 	void testUpdate() throws Exception{

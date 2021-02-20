@@ -14,14 +14,12 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-<<<<<<< HEAD
-import org.springframework.test.context.ActiveProfiles;
-=======
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
->>>>>>> TDL-26
+
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
@@ -29,17 +27,13 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-<<<<<<< HEAD
-@Disabled("Diabled because void driver bug not fixed")
-@ActiveProfiles("test")
-@Sql (scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-=======
+
 //
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Disabled
 @Sql (scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 
->>>>>>> TDL-26
+
 public class WebAppTest {
 	
 	@Autowired
@@ -66,17 +60,17 @@ public class WebAppTest {
 		test=report.startTest("Create a list test");
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we click the New List button");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.getCreateFormBtn().click();
-		wait.until(ExpectedConditions.attributeContains(By.id("createFormDiv"), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("createFormDiv"), "display", "block"));
 		
 		test.log(LogStatus.INFO, "And when I input a list name and click the tick buttton");
 		setup.getListName().sendKeys("Test List");
 		setup.getCreateListBtn().click();
-		wait.until(ExpectedConditions.attributeContains(By.id("displayDivRead"),"display","block"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("displayDivRead"),"display","block"));
 		
 		test.log(LogStatus.INFO, "Then - I should see the list record");
 		String result = setup.getDisplayDivRead().getText();
@@ -95,12 +89,12 @@ public class WebAppTest {
 		
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 		 
 		test.log(LogStatus.INFO, "When we click the Show All Lists button");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.getReadAllBtn().click();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		
 		test.log(LogStatus.INFO, "Then - I should see all the lists in the database");
@@ -126,12 +120,12 @@ public class WebAppTest {
 
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 	
 		test.log(LogStatus.INFO, "Then - I should see this list and the items in it");
 		String result = setup.getDisplayDivRead().getText();
@@ -150,12 +144,12 @@ public class WebAppTest {
 
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the edit/pencil button");
 		setup.update("Update");
@@ -177,16 +171,16 @@ public class WebAppTest {
 
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the delete button");
 		setup.getDelBtn().click();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivDelete(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivDelete(), "display", "block"));
 		
 		test.log(LogStatus.INFO, "Then - I should see a confirmation of deletion");
 		String result = setup.getDisplayDivDelete().getText();
@@ -204,20 +198,20 @@ public class WebAppTest {
 		test=report.startTest("Create a item test");
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 		
 		test.log(LogStatus.INFO, "And when I click the add task button");
 		setup.getAddTaskBtn1().click();
-		wait.until(ExpectedConditions.attributeContains(By.id("createItemSeparate"), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("createItemSeparate"), "display", "block"));
 		
 		test.log(LogStatus.INFO, "And when I input values to the form");
 		setup.createItemInList1("Test Item", "no");
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "Then - I should see the item inside its parent list record");
 		String result = setup.getDisplayDivRead().getText();
@@ -236,20 +230,20 @@ public class WebAppTest {
 
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the edit item button");
 		setup.getEditItem1Btn().click();
-		wait.until(ExpectedConditions.attributeContains(By.id("updateItemFormDiv"), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("updateItemFormDiv"), "display", "block"));
 		
 		test.log(LogStatus.INFO, "And when we input updated details");
 		setup.updateItemInList1("Updated","yes");
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));	
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));	
 		
 		test.log(LogStatus.INFO, "Then - I should see this task with new name and marked done");
 		String resultBox = setup.getDisplayDivRead().getText();
@@ -277,16 +271,16 @@ public class WebAppTest {
 
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the delete item 1 button");
 		setup.getDeleteItem1Btn().click();
-		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+//		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 		
 		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
 		String result = setup.getDisplayDivRead().getText();

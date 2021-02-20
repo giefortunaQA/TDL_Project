@@ -90,7 +90,7 @@ public class WebAppTestSetup {
 	
 	public void readFirstListById(){
 		refreshBtn.click();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.attributeContains(yourList1Btn, "display", "block"));
+//		new WebDriverWait(driver, 2).until(ExpectedConditions.attributeContains(yourList1Btn, "display", "block"));
 		yourList1Btn.click();
 	}
 	
