@@ -32,7 +32,7 @@ java -version
 
 Then, change the directory to your local git repository and in the target directory:
 ```
-cd ..\20DecSDET2-IMS-Starter\target
+cd ..\TDL_Project\target
 ```
 
 To start the application, execute the .jar file:
