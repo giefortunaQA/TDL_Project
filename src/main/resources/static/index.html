@@ -21,13 +21,13 @@
 			<div id="mySidepanel" class="sidepanel">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				<p>
-					<button class="btn" onclick="readAllLists()">
+					<button class="btn" id="readAllBtn" onclick="readAllLists()">
 						<img src="./img/eyeglasses.svg" alt="read">
 						Show all lists
 					</button>
 				</p>
 				<p>
-					<button type="submit" onclick="onlyShow(createFormDiv)" class="btn formBtn">
+					<button type="submit" id="createFormBtn" onclick="onlyShow(createFormDiv)" class="btn formBtn">
 						<img src="./img/plus-circle.svg" alt="plus"> New list
 					</button>
 				</p>
@@ -36,7 +36,7 @@
 				</p>
 				<h4>
 					Your Lists
-					<button class="btn  refreshBtn" onclick="updateSidebar()">
+					<button class="btn" id="refreshBtn" onclick="updateSidebar()">
 						<img src="./img/clock-history.svg" alt="refresh">
 					</button>
 				</h4>
@@ -59,7 +59,7 @@
 					<form id="createForm">
 						<span>
 							<input type="text" class="form-control" id="name" placeholder="Task Title">
-							<button type="button" class="btn btn-light formBtn pull-right" onclick="createList()">
+							<button type="button" class="btn btn-light formBtn pull-right" id="createListBtn" onclick="createList()">
 								<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
 							</button></span>
 					</form>
