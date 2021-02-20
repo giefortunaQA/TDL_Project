@@ -44,14 +44,14 @@ The above can also be ran without cloning the whole repository. Simply download 
 
 Alternaltively, the web app can be launched my opening the index.html file in src/main/resources/static.
 
-## Running the tests
+### Running the tests
 
 To run the JUnit tests in this Maven package, simply change the directory to ..\20DecSDET2-IMS-Starter and execute
 ```
 mvn test
 ```
 
-### Mockito Unit Tests 
+## Mockito Unit Tests 
 
 These tests confirm that each method,without their dependencies, returns the correct/expected value using assertions and mockings. 
 
@@ -94,7 +94,7 @@ Example:
 		verify(this.repo,times(1)).save(toCreate);
 	}
 ```
-##Spring Integration-System Tests
+## Spring Integration-System Tests
 These are intended to test the  Controller-Service relationships (integration) and asserts that the back-end of the project is functional from Controller to the Sql Database and back (system).
 Here, MockMvc and its methods were utilised to send the request and check the response received.
 
@@ -123,7 +123,7 @@ Here, MockMvc and its methods were utilised to send the request and check the re
 	}
 ```
 
-##Acceptance Tests with Selenium
+## Acceptance Tests with Selenium
 These tests mock a user's interaction with the front-end and asserts that the interaction was successful or otherwise by checking the contents/results of the mock activity.
 We use Chrome Driver to retrieve elements of the page and facilitate the actions in the tests. 
 At the and of all the tests, an extent report is created in the /target/reports/extentreports folder. This displays the acceptance criteria alongside test failures/successes logically.
