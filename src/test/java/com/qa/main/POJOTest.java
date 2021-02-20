@@ -25,7 +25,7 @@ public class POJOTest {
 	private MockMvc mvc;
 	
 	@Test
-	public void testOnCascadeDelete() throws Exception{
+	void testOnCascadeDelete() throws Exception{
 		RequestBuilder requestDeleteList=delete("/toDoList/delete/1");
 		this.mvc.perform(requestDeleteList);
 		RequestBuilder requestReadItem=get("/item/read/1");

@@ -50,7 +50,7 @@ public class ItemIntegrationTest {
 	private final List<ItemDto> prePopItems=List.of(prePopItem1AsDto,prePopItem2AsDto);
 	
 	@Test
-	public void testCreate() throws Exception{
+	void testCreate() throws Exception{
 		ItemDto toCreateAsDto=this.mapToIDto(new Item("Test Create Item",false,prePopList1)); //adding new task to prepop list 1
 		ItemDto expectedAsDto=this.mapToIDto(new Item(3L,"Test Create Item",false,prePopList1));
 		String toCreateAsJson=this.jsonify.writeValueAsString(toCreateAsDto);
@@ -62,7 +62,7 @@ public class ItemIntegrationTest {
 	}
 
 	@Test
-	public void testReadAll() throws Exception {
+	void testReadAll() throws Exception {
 		String prePopListsAsJson=this.jsonify.writeValueAsString(prePopItems);
 		RequestBuilder request = get(URI + "/read");
 		ResultMatcher confirmStatus = status().isOk();
@@ -71,7 +71,7 @@ public class ItemIntegrationTest {
 	}
 	
 	@Test
-	public void testReadById() throws Exception{
+	void testReadById() throws Exception{
 		String prePop1AsJson=this.jsonify.writeValueAsString(prePopItem1AsDto);
 		RequestBuilder request=get(URI+"/read/1");
 		ResultMatcher confirmStatus=status().isOk();
@@ -80,7 +80,7 @@ public class ItemIntegrationTest {
 	}
 	
 	@Test
-	public void testUpdate() throws Exception{
+	void testUpdate() throws Exception{
 		ItemDto prePop1Update=prePopItem1AsDto;
 		prePop1Update.setName("Prepopulated Item 1 - Updated");
 		ItemDto expectedAsDto = this.mapToIDto(new Item(1L, "Prepopulated Item 1 - Updated",false,prePopList1));
@@ -93,7 +93,7 @@ public class ItemIntegrationTest {
 	}
 	
 	@Test
-	public void testDeletePass() throws Exception{
+	void testDeletePass() throws Exception{
 		RequestBuilder request=delete(URI+"/delete/1");
 		ResultMatcher confirmStatus=status().isNoContent();
 		ResultMatcher confirmBody=content().string("");
@@ -108,7 +108,7 @@ public class ItemIntegrationTest {
 //	}
 	
 	@Test
-	public void testFindItemsInList() throws Exception{
+	void testFindItemsInList() throws Exception{
 		String prePopItemsAsJson=jsonify.writeValueAsString(prePopItems);
 		RequestBuilder request=get(URI+"/read/in-list/1");
 		ResultMatcher confirmStatus=status().isOk();

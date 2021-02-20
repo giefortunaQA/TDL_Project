@@ -49,7 +49,7 @@ public class ToDoListIntegrationTest {
 
 
 	@Test
-	public void testCreate() throws Exception {
+	void testCreate() throws Exception {
 		// resources
 		ToDoListDto toCreateAsDto = this.mapToTDLDto(new ToDoList("Test Create List"));
 		ToDoListDto expectedAsDto = this.mapToTDLDto(new ToDoList(3L, "Test Create List"));
@@ -64,7 +64,7 @@ public class ToDoListIntegrationTest {
 	}
 
 	@Test
-	public void testReadAll() throws Exception {
+	void testReadAll() throws Exception {
 		String prePopListsAsJson=this.jsonify.writeValueAsString(prePopLists);
 		RequestBuilder request = get(URI + "/read");
 		ResultMatcher confirmStatus = status().isOk();
@@ -74,7 +74,7 @@ public class ToDoListIntegrationTest {
 	}
 	
 	@Test
-	public void testReadById() throws Exception{
+	 void testReadById() throws Exception{
 		String prePop1AsJson=this.jsonify.writeValueAsString(prePopList1AsDto);
 		RequestBuilder request=get(URI+"/read/1");
 		ResultMatcher confirmStatus=status().isOk();
@@ -83,7 +83,7 @@ public class ToDoListIntegrationTest {
 	}
 	
 	@Test
-	public void testUpdate() throws Exception{
+	void testUpdate() throws Exception{
 		ToDoListDto prePop1Update=prePopList1AsDto;
 		prePop1Update.setName("Prepopulated List 1 - Updated");
 		ToDoListDto expectedAsDto = this.mapToTDLDto(new ToDoList(1L, "Prepopulated List 1 - Updated"));
@@ -96,7 +96,7 @@ public class ToDoListIntegrationTest {
 	}
 	
 	@Test
-	public void testDeletePass() throws Exception{
+	void testDeletePass() throws Exception{
 		RequestBuilder request=delete(URI+"/delete/1");
 		ResultMatcher confirmStatus=status().isNoContent();
 		ResultMatcher confirmBody=content().string("");

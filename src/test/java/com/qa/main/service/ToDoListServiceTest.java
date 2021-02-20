@@ -45,7 +45,7 @@ public class ToDoListServiceTest {
 	
 	
 	@Test
-	public void testCreate() throws Exception{
+	void testCreate() throws Exception{
 		//resources
 		ToDoList toCreate=new ToDoList("Newly created list");
 		ToDoList created=new ToDoList(3L,"Newly created list");
@@ -60,7 +60,7 @@ public class ToDoListServiceTest {
 	}
 	
 	@Test
-	public void testReadAll() throws Exception{
+	void testReadAll() throws Exception{
 		//re
 		List<ToDoList> testLists=List.of(testList1,testList2);
 		List<ToDoListDto> testListsAsDtos= testLists.stream().map(this::mapToTDLDto).collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class ToDoListServiceTest {
 		}
 	
 	@Test
-	public void testReadById() throws Exception{
+	void testReadById() throws Exception{
 		//re
 		Long id=1L;
 		//ru
@@ -84,7 +84,7 @@ public class ToDoListServiceTest {
 	}
 	
 //	@Test
-//	public void testUpdate() throws Exception{
+//	void testUpdate() throws Exception{
 //		ToDoList toUpdate=new ToDoList(1L,"Prepopoulated List 1 - Updated");
 //		ToDoListDto toUpdateDto=this.mapToTDLDto(toUpdate);
 //		ToDoList target=new ToDoList(1L,"Prepopoulated List 1");
@@ -99,7 +99,7 @@ public class ToDoListServiceTest {
 //	}
 	
 	@Test
-	public void testDeleteFail() throws Exception{
+	void testDeleteFail() throws Exception{
 		Long id=1L;
 		//ru
 		when(this.repo.existsById(id)).thenReturn(true);

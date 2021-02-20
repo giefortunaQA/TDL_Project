@@ -14,12 +14,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 
 @ActiveProfiles("test")
+@Sql (scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class WebAppTest {
 	
 	private static WebDriver driver;
@@ -39,7 +43,7 @@ public class WebAppTest {
 	}
 	
 	@Test
-	public void testCreateList() throws Exception{
+	void testCreateList() throws Exception{
 		test=report.startTest("Create a list test");
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);

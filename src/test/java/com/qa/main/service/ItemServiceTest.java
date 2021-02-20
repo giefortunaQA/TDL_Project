@@ -47,7 +47,7 @@ public class ItemServiceTest {
 	private final List<ItemDto> prePopItems=List.of(prePopItem1AsDto,prePopItem2AsDto);
 	
 	@Test
-	public void testCreate() throws Exception{
+	void testCreate() throws Exception{
 		Item toCreate=new Item("Newly created item",false,prePopList1);
 		Item created=new Item(3L,"Newly created item",false,prePopList1);
 		//rules
@@ -60,14 +60,14 @@ public class ItemServiceTest {
 	}
 	
 	@Test
-	public void testReadAll() throws Exception{
+	void testReadAll() throws Exception{
 		when(this.repo.findAll()).thenReturn(prePopItemsPojo);
 		assertThat(this.service.readAll()).isEqualTo(prePopItems);
 		verify(this.repo,times(1)).findAll();
 	}
 	
 	@Test
-	public void testReadById() throws Exception{
+	void testReadById() throws Exception{
 		Long id=1L;
 		when(this.repo.findById(id)).thenReturn(Optional.of(prePopItem1));
 		assertThat(this.service.readById(id)).isEqualTo(prePopItem1AsDto);
@@ -76,7 +76,7 @@ public class ItemServiceTest {
 	}
 	
 	@Test
-	public void testUpdate() throws Exception{
+	void testUpdate() throws Exception{
 		Long id=1L;
 		Item toUpdate=new Item(1L,"Prepopoulated Item 1 - Updated",false,prePopList1);
 		ItemDto toUpdateDto=this.mapToIDto(toUpdate);
@@ -91,7 +91,7 @@ public class ItemServiceTest {
 	}
 	
 	@Test
-	public void testDeletePass() throws Exception{
+	void testDeletePass() throws Exception{
 		Long id=1L;
 		//ru
 		when(this.repo.existsById(id)).thenReturn(false);
@@ -100,7 +100,7 @@ public class ItemServiceTest {
 		verify(this.repo,times(1)).existsById(id);
 	}
 	@Test
-	public void testDeleteFail() throws Exception{
+	void testDeleteFail() throws Exception{
 		Long id=1L;
 		//ru
 		when(this.repo.existsById(id)).thenReturn(true);
@@ -110,7 +110,7 @@ public class ItemServiceTest {
 	}
 
 	@Test
-	public void testFindItemsInList() throws Exception{
+	void testFindItemsInList() throws Exception{
 		Long listId=1L;
 		when(this.repo.findItemsInList(listId)).thenReturn(prePopItemsPojo);
 		//
