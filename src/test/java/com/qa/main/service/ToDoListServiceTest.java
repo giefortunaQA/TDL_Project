@@ -30,8 +30,8 @@ public class ToDoListServiceTest {
 	@MockBean
 	private ToDoListRepo repo;
 	
-	@MockBean
-	private ModelMapper mapper;
+	
+	private ModelMapper mapper=new ModelMapper();
 	
 	private ToDoListDto mapToTDLDto(ToDoList list) {
 		return this.mapper.map(list, ToDoListDto.class);
@@ -81,30 +81,25 @@ public class ToDoListServiceTest {
 		assertThat(this.service.readById(id)).isEqualTo(this.mapToTDLDto(testList1));
 		verify(this.repo,times(1)).findById(id);
 		
+
+	@Test
+	void testUpdate() throws Exception{
+		Long id=1L;
+		ToDoList updated=new ToDoList(1L,"Test List 1 Updated");
+		ToDoListDto updatedDto=this.mapToTDLDto(updated);
+		
+		when(this.repo.findById(id)).thenReturn(Optional.of(testList1));
+		when(this.repo.save(updated)).thenReturn(updated);
+		assertThat(this.service.update(updatedDto, id)).isEqualTo(updatedDto);
+		verify(this.repo,times(1)).findById(id);
+		verify(this.repo,times(1)).save(updated);
 	}
-	
-//	@Test
-//	void testUpdate() throws Exception{
-//		ToDoList toUpdate=new ToDoList(1L,"Prepopoulated List 1 - Updated");
-//		ToDoListDto toUpdateDto=this.mapToTDLDto(toUpdate);
-//		ToDoList target=new ToDoList(1L,"Prepopoulated List 1");
-//		Long id=target.getId();
-//		//ru
-//		when(this.repo.findById(id)).thenReturn(Optional.of(target));
-//		when(this.repo.save(toUpdate)).thenReturn(toUpdate);
-//		//a
-//		assertThat(this.service.update(toUpdateDto, id)).isEqualTo(toUpdateDto);
-//		verify(this.repo,times(1)).findById(id);
-//		verify(this.repo,times(1)).save(toUpdate);
-//	}
 	
 	@Test
 	void testDeleteFail() throws Exception{
 		Long id=1L;
-		//ru
 		when(this.repo.existsById(id)).thenReturn(true);
-		//a
-		assertThat(this.service.delete(id)).isEqualTo(false);
+		assertThat(this.service.delete(id)).isFalse();
 		verify(this.repo,times(1)).existsById(id);
 	}
 	

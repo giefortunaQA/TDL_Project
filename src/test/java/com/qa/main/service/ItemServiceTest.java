@@ -81,10 +81,10 @@ public class ItemServiceTest {
 		Item toUpdate=new Item(1L,"Prepopoulated Item 1 - Updated",false,prePopList1);
 		ItemDto toUpdateDto=this.mapToIDto(toUpdate);
 		Item target=new Item(1L,"Prepopoulated Item 1",false,prePopList1);
-		//ru
+		
 		when(this.repo.findById(id)).thenReturn(Optional.of(target));
 		when(this.repo.save(toUpdate)).thenReturn(toUpdate);
-		//a
+		
 		assertThat(this.service.update(toUpdateDto, id)).isEqualTo(toUpdateDto);
 		verify(this.repo,times(1)).findById(id);
 		verify(this.repo,times(1)).save(toUpdate);
@@ -96,7 +96,7 @@ public class ItemServiceTest {
 		//ru
 		when(this.repo.existsById(id)).thenReturn(false);
 		//a
-		assertThat(this.service.delete(id)).isEqualTo(true);
+		assertThat(this.service.delete(id)).isTrue();
 		verify(this.repo,times(1)).existsById(id);
 	}
 	@Test
@@ -105,7 +105,7 @@ public class ItemServiceTest {
 		//ru
 		when(this.repo.existsById(id)).thenReturn(true);
 		//a
-		assertThat(this.service.delete(id)).isEqualTo(false);
+		assertThat(this.service.delete(id)).isFalse();
 		verify(this.repo,times(1)).existsById(id);
 	}
 

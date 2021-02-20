@@ -138,7 +138,7 @@ const addToSidebar = (data) => {
 
 const updateSidebar = () => {
 	sideBarList.innerHTML = "";
-	fetch("http://localhost:9092/toDoList/read")
+	fetch("http://localhost:9090/toDoList/read")
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -168,7 +168,7 @@ const createList = () => {
 	let formData = {
 		name: listName.value,
 	}
-	fetch("http://localhost:9092/toDoList/create", {
+	fetch("http://localhost:9090/toDoList/create", {
 		method: 'post',
 		headers: {
 			"Content-type": "application/json"
@@ -187,7 +187,7 @@ const createList = () => {
 }
 
 const findLatestId = () => {
-	fetch("http://localhost:9092/toDoList/latest")
+	fetch("http://localhost:9090/toDoList/latest")
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -202,7 +202,7 @@ const findLatestId = () => {
 
 const readById = (id) => {
 	toDisplayRead.innerHTML = "";
-	fetch(`http://localhost:9092/toDoList/read/${id}`)
+	fetch(`http://localhost:9090/toDoList/read/${id}`)
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -220,7 +220,7 @@ const readById = (id) => {
 
 const readAllLists = () => {
 	toDisplayRead.innerHTML = "";
-	fetch("http://localhost:9092/toDoList/read")
+	fetch("http://localhost:9090/toDoList/read")
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");
@@ -248,7 +248,7 @@ const updateList = (id) => {
 	let formData = {
 		name: listNameUpdate.value,
 	}
-	fetch(`http://localhost:9092/toDoList/update/${id}`, {
+	fetch(`http://localhost:9090/toDoList/update/${id}`, {
 		method: 'put',
 		headers: {
 			"Content-type": "application/json"
@@ -269,7 +269,7 @@ const updateList = (id) => {
 
 const deleteList = (idVal) => {
 	toDisplayDelete.innerHTML = "";
-	fetch(`http://localhost:9092/toDoList/delete/${idVal}`, {
+	fetch(`http://localhost:9090/toDoList/delete/${idVal}`, {
 		method: 'delete'
 	})
 		.then(res => JSON.stringify(res))
@@ -284,7 +284,7 @@ const deleteList = (idVal) => {
 		.catch(err => console.log(err));
 }
 const readAllItemsInList = (id) => {
-	fetch(`http://localhost:9092/item/read/in-list/${id}`)
+	fetch(`http://localhost:9090/item/read/in-list/${id}`)
 		.then((res) => {
 			if (res.ok != true) {
 				console.log("Status is not OK!");

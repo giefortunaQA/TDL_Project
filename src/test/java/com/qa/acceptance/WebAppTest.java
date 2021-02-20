@@ -14,7 +14,14 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+<<<<<<< HEAD
 import org.springframework.test.context.ActiveProfiles;
+=======
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+>>>>>>> TDL-26
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
@@ -22,23 +29,34 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
+<<<<<<< HEAD
 @Disabled("Diabled because void driver bug not fixed")
 @ActiveProfiles("test")
 @Sql (scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+=======
+//
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Disabled
+@Sql (scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+
+>>>>>>> TDL-26
 public class WebAppTest {
 	
+	@Autowired
 	private static WebDriver driver;
 	private static ExtentReports report;
 	private static ExtentTest test;
+	WebDriverWait wait=new WebDriverWait(driver, 2);
 	@BeforeAll
 	static void beforeAll() {
 		report = new ExtentReports(
-				"C:\\Users\\Gie\\Downloads\\STS\\Workspace\\Selenium\\target\\reports\\extentreports\\ToDoListReport",
+				"/TDL_Project/target/reports/WebAppTestReport.html",
 				true);
 	}
 	@BeforeEach
-	void beforeEach() {
-		System.setProperty("webdriver.chrome.driver", "/src/test/resources/driver/chromedriver.exe");
+
+	public void beforeEach() {
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Gie\\git\\TDL_Project\\src\\test\\resources\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().setSize(new Dimension(1366, 768));
 	}
@@ -48,14 +66,18 @@ public class WebAppTest {
 		test=report.startTest("Create a list test");
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we click the New List button");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.getCreateFormBtn().click();
+		wait.until(ExpectedConditions.attributeContains(By.id("createFormDiv"), "display", "block"));
+		
 		test.log(LogStatus.INFO, "And when I input a list name and click the tick buttton");
 		setup.getListName().sendKeys("Test List");
 		setup.getCreateListBtn().click();
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(By.id("displayDivRead"),"display","block"));
+		
 		test.log(LogStatus.INFO, "Then - I should see the list record");
 		String result = setup.getDisplayDivRead().getText();
 		boolean contains = result.contains("Test List");
@@ -70,15 +92,17 @@ public class WebAppTest {
 	@Test
 	void testReadAllLists() throws Exception {
 		test=report.startTest("Read all lists test");
-//		 GIVEN
+		
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+		 
 		test.log(LogStatus.INFO, "When we click the Show All Lists button");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.getReadAllBtn().click();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
-		// THEN
+		
 		test.log(LogStatus.INFO, "Then - I should see all the lists in the database");
 		String result = setup.getDisplayDivRead().getText();
 		boolean contains = result.contains("No Lists.");
@@ -99,15 +123,16 @@ public class WebAppTest {
 	@Test
 	void testReadListById() throws Exception{
 		test=report.startTest("Read list by Id Test");
-//		 GIVEN
+
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
-
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+	
 		test.log(LogStatus.INFO, "Then - I should see this list and the items in it");
 		String result = setup.getDisplayDivRead().getText();
 		boolean contains = result.contains("Prepopulated List 1");
@@ -122,17 +147,19 @@ public class WebAppTest {
 	@Test
 	void testUpdateList() throws Exception{
 		test=report.startTest("Update list by Id Test");
-//		 GIVEN
+
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the edit/pencil button");
 		setup.update("Update");
-		// THEN
+
 		test.log(LogStatus.INFO, "Then - I should see this list with new name");
 		String result = setup.getDisplayDivRead().getText();
 		boolean contains = result.contains("Update");
@@ -147,17 +174,20 @@ public class WebAppTest {
 	@Test
 	void testDeleteList() throws Exception{
 		test=report.startTest("Delete list Test");
-//		 GIVEN
+
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the delete button");
 		setup.getDelBtn().click();
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivDelete(), "display", "block"));
+		
 		test.log(LogStatus.INFO, "Then - I should see a confirmation of deletion");
 		String result = setup.getDisplayDivDelete().getText();
 		boolean contains = result.contains("To Do List deleted permanently.");
@@ -174,15 +204,21 @@ public class WebAppTest {
 		test=report.startTest("Create a item test");
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+		
 		test.log(LogStatus.INFO, "And when I click the add task button");
 		setup.getAddTaskBtn1().click();
+		wait.until(ExpectedConditions.attributeContains(By.id("createItemSeparate"), "display", "block"));
+		
 		test.log(LogStatus.INFO, "And when I input values to the form");
 		setup.createItemInList1("Test Item", "no");
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+
 		test.log(LogStatus.INFO, "Then - I should see the item inside its parent list record");
 		String result = setup.getDisplayDivRead().getText();
 		boolean contains = result.contains("Test Item");
@@ -197,19 +233,24 @@ public class WebAppTest {
 	@Test
 	void testUpdateItem() {
 		test=report.startTest("Update Item Test");
-//		 GIVEN
+
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the edit item button");
 		setup.getEditItem1Btn().click();
+		wait.until(ExpectedConditions.attributeContains(By.id("updateItemFormDiv"), "display", "block"));
+		
 		test.log(LogStatus.INFO, "And when we input updated details");
 		setup.updateItemInList1("Updated","yes");
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));	
+		
 		test.log(LogStatus.INFO, "Then - I should see this task with new name and marked done");
 		String resultBox = setup.getDisplayDivRead().getText();
 		WebElement resultItem=driver.findElement(By.tagName("strike"));
@@ -233,17 +274,20 @@ public class WebAppTest {
 	@Test
 	void testDeleteItem() {
 		test=report.startTest("Delete Item Test");
-//		 GIVEN
+
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
-//		 WHEN
+		wait.until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		test.log(LogStatus.INFO, "When we read the first list");
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		setup.readFirstListById();
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
 
 		test.log(LogStatus.INFO, "And when we click the delete item 1 button");
 		setup.getDeleteItem1Btn().click();
-		// THEN
+		wait.until(ExpectedConditions.attributeContains(setup.getDisplayDivRead(), "display", "block"));
+		
 		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
 		String result = setup.getDisplayDivRead().getText();
 		boolean success = !result.contains("Prepopulated Item 1");
