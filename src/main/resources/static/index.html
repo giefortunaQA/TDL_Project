@@ -94,7 +94,7 @@
 					<input type="text" id="listId" style="display: none;">
 					<input type="text" id="itemName" placeholder="New task">
 					<input type="text" id="itemDone" placeholder="Done? yes or no">
-					<button type="button" class="btn formBtn" onclick="createItem()">
+					<button type="button" class="btn formBtn" id="createItemBtn" onclick="createItem()">
 						<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
 					</button>
 				</div>
@@ -105,8 +105,8 @@
 						<input type="text" id="itemId">
 						<input type="text" id="itemNameUpdate">
 						<input type="text" id="itemDoneUpdate" placeholder="Done? yes or no">
-						<button type="button" class="btn formBtn">
-							<img src="./img/check2.svg" alt="update" tooltip="Update Task" id="updateItemBtn">
+						<button type="button" class="btn formBtn" id="updateItemBtn">
+							<img src="./img/check2.svg" alt="update" title="Update Task" id="updateItemBtn">
 						</button>
 					</form>
 				</div>
