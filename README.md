@@ -157,19 +157,14 @@ At the and of all the tests, an extent report is created in the /target/reports/
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning.
+All the versions of this project is in Github https://github.com/giefortunaQA/TDL_Project
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Gie-Anne Fortuna** 
 
-## License
 
-This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md) file for details 
-
-*For help in [Choosing a license](https://choosealicense.com/)*
 
 ## Acknowledgments
 
-* Hat tip to Nick and Pawel, our trainers
-* Inspiration to my team, Team Serpent 
+*Thanks to Peter and Peprah
