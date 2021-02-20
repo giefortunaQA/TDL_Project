@@ -32,6 +32,6 @@ public class POJOTest {
 		NestedServletException e =assertThrows(NestedServletException.class, ()->{
 			this.mvc.perform(requestReadItem);
 		});
-		assertThat(e.getCause().toString()).isEqualTo("java.util.NoSuchElementException: No value present");
+		assertThat(e.getCause()).hasToString("java.util.NoSuchElementException: No value present");
 	}
 }
