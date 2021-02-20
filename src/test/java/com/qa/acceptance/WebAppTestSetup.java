@@ -1,5 +1,6 @@
 package com.qa.acceptance;
 
+import org.junit.jupiter.api.Disabled;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.Data;
 
 @Data
+@Disabled
 public class WebAppTestSetup {
 
 	public final static String URL="http://127.0.0.1:5500/src/main/resources/static/index.html";
-	@Autowired
+	
+	
 	private WebDriver driver;
 	
 	
