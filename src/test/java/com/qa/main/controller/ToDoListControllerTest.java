@@ -51,7 +51,7 @@ public class ToDoListControllerTest {
 	
 
 	@Test
-	public void testReadAll() throws Exception {
+	void testReadAll() throws Exception {
 		when(this.service.readAll()).thenReturn(prePopLists);
 		ResponseEntity<List<ToDoListDto>> expected=new ResponseEntity<>(prePopLists,HttpStatus.OK);
 		assertThat(this.controller.readAll()).isEqualTo(expected);
@@ -59,7 +59,7 @@ public class ToDoListControllerTest {
 	}
 	
 	@Test
-	public void testReadById() throws Exception{
+	void testReadById() throws Exception{
 		Long id=1L;
 		when(this.service.readById(id)).thenReturn(prePopList1AsDto);
 		ResponseEntity<ToDoListDto> expected=new ResponseEntity<ToDoListDto>(prePopList1AsDto, HttpStatus.OK);
@@ -68,7 +68,7 @@ public class ToDoListControllerTest {
 	}
 	
 	@Test
-	public void testUpdate() throws Exception{
+	void testUpdate() throws Exception{
 		ToDoListDto prePop1Update=prePopList1AsDto;
 		prePop1Update.setName("Prepopulated List 1- Updated");
 		when(this.service.update(prePop1Update, 1L)).thenReturn(prePop1Update);
@@ -78,7 +78,7 @@ public class ToDoListControllerTest {
 	}
 	
 	@Test
-	public void testDeletePass() throws Exception{
+	void testDeletePass() throws Exception{
 		Long id=1L;
 		when(this.service.delete(id)).thenReturn(true);
 		ResponseEntity<Boolean> expected=new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -87,7 +87,7 @@ public class ToDoListControllerTest {
 	}
 	
 	@Test
-	public void testDeleteFail() throws Exception{
+	void testDeleteFail() throws Exception{
 		Long id=1L;
 		when(this.service.delete(id)).thenReturn(false);
 		ResponseEntity<Boolean> expected=new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -25,13 +25,13 @@ public class POJOTest {
 	private MockMvc mvc;
 	
 	@Test
-	public void testOnCascadeDelete() throws Exception{
+	void testOnCascadeDelete() throws Exception{
 		RequestBuilder requestDeleteList=delete("/toDoList/delete/1");
 		this.mvc.perform(requestDeleteList);
 		RequestBuilder requestReadItem=get("/item/read/1");
 		NestedServletException e =assertThrows(NestedServletException.class, ()->{
 			this.mvc.perform(requestReadItem);
 		});
-		assertThat(e.getCause().toString()).isEqualTo("java.util.NoSuchElementException: No value present");
+		assertThat(e.getCause()).hasToString("java.util.NoSuchElementException: No value present");
 	}
 }

@@ -43,7 +43,7 @@ public class ItemControllerTest {
 	private ItemDto test2AsDto = this.mapToIDto(testItem2);
 
 	@Test
-	public void testCreate() throws Exception {
+	void testCreate() throws Exception {
 		when(this.service.create(testItem1)).thenReturn(test1AsDto);
 		ResponseEntity<ItemDto> expected = new ResponseEntity<ItemDto>(test1AsDto, HttpStatus.CREATED);
 		assertThat(this.controller.create(testItem1)).isEqualTo(expected);
@@ -51,7 +51,7 @@ public class ItemControllerTest {
 	}
 
 	@Test
-	public void testReadAll() throws Exception {
+	void testReadAll() throws Exception {
 		List<ItemDto> testItems = List.of(test1AsDto, test2AsDto);
 		when(this.service.readAll()).thenReturn(testItems);
 		ResponseEntity<List<ItemDto>> expected = ResponseEntity.ok(testItems);
@@ -60,7 +60,7 @@ public class ItemControllerTest {
 	}
 
 	@Test
-	public void testReadById() throws Exception {
+	void testReadById() throws Exception {
 		ItemDto toRead = test1AsDto;
 		toRead.setId(1L);
 		when(this.service.readById(1L)).thenReturn(toRead);
@@ -70,7 +70,7 @@ public class ItemControllerTest {
 	}
 
 	@Test
-	public void testUpdate() throws Exception {
+	void testUpdate() throws Exception {
 		ItemDto toUpdate = test1AsDto;
 		test1AsDto.setName("Test Item 1 Updated");
 		when(this.service.update(toUpdate, 1L)).thenReturn(toUpdate);
@@ -79,7 +79,7 @@ public class ItemControllerTest {
 	}
 
 	@Test
-	public void testDelete() throws Exception {
+	void testDelete() throws Exception {
 		when(this.service.delete(1L)).thenReturn(false);
 		ResponseEntity<Boolean> expected = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		assertThat(this.controller.delete(1L)).isEqualTo(expected);

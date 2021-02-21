@@ -45,7 +45,7 @@ public class ToDoListServiceTest {
 	
 	
 	@Test
-	public void testCreate() throws Exception{
+	void testCreate() throws Exception{
 		//resources
 		ToDoList toCreate=new ToDoList("Newly created list");
 		ToDoList created=new ToDoList(3L,"Newly created list");
@@ -60,7 +60,7 @@ public class ToDoListServiceTest {
 	}
 	
 	@Test
-	public void testReadAll() throws Exception{
+	void testReadAll() throws Exception{
 		//re
 		List<ToDoList> testLists=List.of(testList1,testList2);
 		List<ToDoListDto> testListsAsDtos= testLists.stream().map(this::mapToTDLDto).collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class ToDoListServiceTest {
 		}
 	
 	@Test
-	public void testReadById() throws Exception{
+	void testReadById() throws Exception{
 		//re
 		Long id=1L;
 		//ru
@@ -80,9 +80,7 @@ public class ToDoListServiceTest {
 		//a
 		assertThat(this.service.readById(id)).isEqualTo(this.mapToTDLDto(testList1));
 		verify(this.repo,times(1)).findById(id);
-		
 	}
-	
 
 	@Test
 	void testUpdate() throws Exception{
@@ -98,7 +96,7 @@ public class ToDoListServiceTest {
 	}
 	
 	@Test
-	public void testDeleteFail() throws Exception{
+	void testDeleteFail() throws Exception{
 		Long id=1L;
 		when(this.repo.existsById(id)).thenReturn(true);
 		assertThat(this.service.delete(id)).isFalse();
