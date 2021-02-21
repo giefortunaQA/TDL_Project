@@ -33,7 +33,6 @@ const addEditDeleteItem = (data, location) => {
 	let edit = document.createElement("button");
 	edit.setAttribute("class", "btn ");
 	edit.setAttribute("onclick", `showAndSet(${data.id},updateItemFormDiv)`);
-	listNameUpdate.setAttribute("placeholder", `${data.name}`)
 	itemId.value =data.id;
 	itemNameUpdate.value=data.name;
 	itemDone.value=data.done;

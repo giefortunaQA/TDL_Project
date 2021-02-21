@@ -54,6 +54,7 @@ public class WebAppTest{
 		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 		driver.get(WebAppTestSetup.URL);
 		new WebDriverWait(driver, 2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
 		WebAppTestSetup setup=new WebAppTestSetup(driver);
 		test.log(LogStatus.INFO, "When we click the New List button");
 		setup.getCreateFormBtn().click();
@@ -83,7 +84,7 @@ public class WebAppTest{
 		setup.waitFor("displayDivRead");
 		test.log(LogStatus.INFO, "Then - I should see all the lists in the database");
 		String result = setup.getDisplayDivRead().getText();
-		boolean contains = result.contains("Test List");
+		boolean contains = result.contains("Prepopulated List 1")&&result.contains("Prepopulated List 2");
 		if (contains) {
 			test.log(LogStatus.PASS, "Test List");
 		}else {
@@ -118,8 +119,181 @@ public class WebAppTest{
 		}
 		assertTrue(contains);
 	}
-	
+	@Test
+	void testUpdateList() throws Exception{
+		test=report.startTest("Update list by Id Test");
+		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+		driver.get(WebAppTestSetup.URL);
+		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
 
+		test.log(LogStatus.INFO, "When we read the first list");
+		WebAppTestSetup setup=new WebAppTestSetup(driver);
+		setup.readFirstListById();
+		setup.waitFor("displayDivRead");
+
+		test.log(LogStatus.INFO, "And when we click the edit/pencil button");
+		setup.getEditBtn().click();
+		setup.waitFor("updateFormDiv");
+		setup.update("Update");
+		setup.waitFor("displayDivRead");
+
+		test.log(LogStatus.INFO, "Then - I should see this list with new name");
+		String result = setup.getDisplayDivRead().getText();
+		boolean contains = result.contains("Update");
+		if (contains) {
+			test.log(LogStatus.PASS, "List updated successfully.");
+		}else {
+			test.log(LogStatus.FAIL, "Found: "+ result+" instead.");
+		}
+		assertTrue(contains);
+	}
+
+
+	@Test
+	void testDeleteList() throws Exception{
+		test=report.startTest("Delete list Test");
+
+		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+		driver.get(WebAppTestSetup.URL);
+		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
+		test.log(LogStatus.INFO, "When we read the first list");
+		WebAppTestSetup setup=new WebAppTestSetup(driver);
+		setup.readFirstListById();
+		setup.waitFor("displayDivRead");
+
+		test.log(LogStatus.INFO, "And when we click the delete button");
+		setup.getDelBtn().click();
+		setup.waitFor("displayDivDelete");
+		
+		test.log(LogStatus.INFO, "Then - I should see a confirmation of deletion");
+		String result = setup.getDisplayDivDelete().getText();
+		boolean contains = result.contains("To Do List deleted permanently.");
+		if (contains) {
+			test.log(LogStatus.PASS, "List delete successfully.");
+		}else {
+			test.log(LogStatus.FAIL, "Found: "+ result+"  instead.");
+		}
+		assertTrue(contains);
+	}
+	
+	@Test
+	void testCreateItem() {
+		test=report.startTest("Create a item test");
+		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+		driver.get(WebAppTestSetup.URL);
+		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
+		WebAppTestSetup setup=new WebAppTestSetup(driver);
+		test.log(LogStatus.INFO, "When we create a new list called 'New List'");
+		setup.getCreateFormBtn().click();
+		setup.waitFor("createFormDiv");
+		setup.createList("New List");
+		setup.waitFor("displayDivRead");
+		
+		test.log(LogStatus.INFO, "When we click the New Task button");
+		setup.getAddTaskBtn3().click();
+		setup.waitFor("createItemSeparate");
+		
+		test.log(LogStatus.INFO, "And when I input values to the form");
+		setup.createItemInList3("Test Item", "no");
+		setup.waitFor("displayDivRead");
+
+		test.log(LogStatus.INFO, "Then - I should see the item inside its parent list record");
+		String result = setup.getDisplayDivRead().getText();
+		boolean contains = result.contains("Test Item");
+		if (contains) {
+			test.log(LogStatus.PASS, "List created");
+		}else {
+			test.log(LogStatus.FAIL, "Found: "+ result+" instead.");
+		}
+		assertTrue(contains);
+	}
+	
+//	@Test
+//	void testUpdateItem() throws InterruptedException {
+//		test=report.startTest("Update Item Test");
+//
+//		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+//		driver.get(WebAppTestSetup.URL);
+//		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//
+//		WebAppTestSetup setup=new WebAppTestSetup(driver);
+//		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
+//		setup.getCreateFormBtn().click();
+//		setup.waitFor("createFormDiv");
+//		setup.createList("New List");
+//		setup.waitFor("displayDivRead");
+//		setup.getAddTaskBtn3().click();
+//		setup.waitFor("createItemSeparate");
+//		setup.createItemInList3("New Task", "no");
+//		setup.waitFor("displayDivRead");
+//
+//		test.log(LogStatus.INFO, "And when we click the edit item button");
+//		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
+//		for (WebElement btn :btns) {
+//			System.out.println(btn.getAttribute("id")+ " : "+btn.getAttribute("onclick"));
+//		}
+//		setup.getEditItem3Btn();
+//		setup.waitFor("updateItemFormDiv");
+//		
+//		test.log(LogStatus.INFO, "And when we input updated details");
+//		setup.updateItemInList3("Updated","yes");
+//		setup.waitFor("displayDivRead");
+//		
+//		test.log(LogStatus.INFO, "Then - I should see this task with new name and marked done");
+//		String resultBox = setup.getDisplayDivRead().getText();
+//		WebElement resultItem=driver.findElement(By.tagName("strike"));
+//		boolean checkUpdatedName=resultItem.getText().equals("Updated");
+//		boolean checkUpdatedDone = resultItem.isDisplayed();
+//		if (checkUpdatedDone) {
+//			test.log(LogStatus.PASS, "Item marked done successfully.");
+//		}else {
+//			test.log(LogStatus.FAIL, "Item not striked.");
+//		}
+//		
+//		if(checkUpdatedName) {
+//			test.log(LogStatus.PASS, "Item name updated successfully");
+//		}else {
+//			test.log(LogStatus.FAIL, "Found: "+resultBox+" instead");
+//		}
+//		assertTrue(checkUpdatedDone);
+//		assertTrue(checkUpdatedName);
+//	}
+//	
+//	@Test
+//	void testDeleteItem() {
+//		test=report.startTest("Delete Item Test");
+//
+//		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+//		driver.get(WebAppTestSetup.URL);
+//		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+//
+//		WebAppTestSetup setup=new WebAppTestSetup(driver);
+//		test.log(LogStatus.INFO, "When we create a new task called 'New Task to be deleted' that is not done");
+//		setup.getCreateFormBtn().click();
+//		setup.waitFor("createFormDiv");
+//		setup.createList("NewList");
+//		setup.waitFor("displayDivRead");
+//		setup.getAddTaskBtn3().click();
+//		setup.waitFor("createItemSeparate");
+//		setup.createItemInList3("New Task", "no");
+//		setup.waitFor("displayDivRead");
+//
+//		test.log(LogStatus.INFO, "And when we click the delete item 3 button");
+//		setup.getDeleteItem3Btn().click();
+//		setup.waitFor("displayDivRead");
+//		
+//		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
+//		String result = setup.getDisplayDivRead().getText();
+//		boolean deleted = !result.contains("New Task");
+//		if (deleted) {
+//			test.log(LogStatus.PASS, "Item deleted successfully.");
+//		}else {
+//			test.log(LogStatus.FAIL, "Found: "+ result+"instead.");
+//		}
+//		assertTrue(deleted);
+//	}
 	@AfterEach
 	void afterEach() {
 		driver.close();

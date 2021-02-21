@@ -13,7 +13,9 @@ import lombok.Data;
 @Data
 public class WebAppTestSetup {
 
-	public final static String URL="http://127.0.0.1:5500/src/main/resources/static/";
+	public final static String URL="http://127.0.0.1:5500/src/main/resources/static/index.html";
+	
+	
 	private WebDriver driver;
 	
 	
@@ -25,58 +27,46 @@ public class WebAppTestSetup {
 
 	@FindBy(id="readAllBtn")
 	private WebElement readAllBtn;
-	
 	@FindBy(id="displayDivRead")
 	private WebElement displayDivRead;
-	
 	@FindBy(id="createFormBtn")
 	private WebElement createFormBtn;
-	
 	@FindBy(id="name")
 	private WebElement listName;
-	
 	@FindBy(id="createListBtn")
 	private WebElement createListBtn;
-
-	
 	@FindBy(id="refreshBtn")
 	private WebElement refreshBtn;
-	
 	@FindBy(id="YourList1")
 	private WebElement yourList1Btn;
-	
 	@FindBy(id="Edit1")
 	private WebElement editBtn;
-	
 	@FindBy(id="nameUpdate")
 	private WebElement listNameUpdate;
-	
 	@FindBy(id="updateBtn")
 	private WebElement updateBtn;
-	
 	@FindBy(id="Delete1")
 	private WebElement delBtn;
-	
 	@FindBy(id="displayDivDelete")
 	private WebElement displayDivDelete;
 	@FindBy(id="createItemBtn")
 	private WebElement createItemBtn;
-	@FindBy(id="addTaskBtn1")
-	private WebElement addTaskBtn1;
+	@FindBy(id="addTaskBtn3")
+	private WebElement addTaskBtn3;
 	@FindBy(id="itemName")
 	private WebElement itemName;
 	@FindBy(id="itemDone")
 	private WebElement itemDone;
-	@FindBy(id="editItem1")
-	private WebElement editItem1Btn;
+	@FindBy(id="EditItem3")
+	private WebElement editItem3Btn;
 	@FindBy(id="itemNameUpdate")
 	private WebElement itemNameUpdate;
 	@FindBy(id="itemDoneUpdate")
 	private WebElement itemDoneUpdate;
 	@FindBy(id="updateItemBtn")
 	private WebElement updateItemBtn;
-	@FindBy(id="DeleteItem1")
-	private WebElement deleteItem1Btn;
+	@FindBy(id="DeleteItem3")
+	private WebElement deleteItem3Btn;
 	
 	public void createList(String name) {
 		createFormBtn.click();
@@ -86,28 +76,28 @@ public class WebAppTestSetup {
 	
 	public void readFirstListById(){
 		refreshBtn.click();
+		new WebDriverWait(driver, 3).until(ExpectedConditions.attributeContains(yourList1Btn, "display", "block"));
 		yourList1Btn.click();
 	}
 	
 	public void update(String name) {
-		editBtn.click();
 		listNameUpdate.sendKeys(name);
 		updateBtn.click();
 	}
 	
-	public void createItemInList1(String name, String done) {
+	public void createItemInList3(String name, String done) {
 		itemName.sendKeys(name);
 		itemDone.sendKeys(done);
 		createItemBtn.click();
 	}
-	public void updateItemInList1(String name,String done) {
+	public void updateItemInList3(String name,String done) {
 		itemNameUpdate.sendKeys(name);
 		itemDoneUpdate.sendKeys(done);
 		updateItemBtn.click();
 	}
 	
 	public void waitFor(String id) {
-		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id(id),"display", "block"));
+		new WebDriverWait(driver,3).until(ExpectedConditions.attributeContains(By.id(id),"display", "block"));
 	}
 
 }
