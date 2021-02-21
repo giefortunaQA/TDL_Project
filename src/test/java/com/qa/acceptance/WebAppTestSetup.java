@@ -90,14 +90,25 @@ public class WebAppTestSetup {
 		itemDone.sendKeys(done);
 		createItemBtn.click();
 	}
-	public void updateItemInList3(String name,String done) {
-		itemNameUpdate.sendKeys(name);
-		itemDoneUpdate.sendKeys(done);
-		updateItemBtn.click();
-	}
+//	public void updateItemInList3(String name,String done) {
+//		itemNameUpdate.sendKeys(name);
+//		itemDoneUpdate.sendKeys(done);
+//		updateItemBtn.click();
+//	}
 	
 	public void waitFor(String id) {
 		new WebDriverWait(driver,3).until(ExpectedConditions.attributeContains(By.id(id),"display", "block"));
 	}
+	
+//	public void createNewListAndTask() {
+//		getCreateFormBtn().click();
+//		waitFor("createFormDiv");
+//		createList("NewList");
+//		waitFor("displayDivRead");
+//		getAddTaskBtn3().click();
+//		waitFor("createItemSeparate");
+//		createItemInList3("New Task", "no");
+//		waitFor("displayDivRead");
+//	}
 
 }

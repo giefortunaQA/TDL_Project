@@ -3,6 +3,10 @@ package com.qa.acceptance;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.openqa.selenium.WebElement;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,7 +39,7 @@ public class WebAppTest{
 	@BeforeAll
     public static void beforeAll() {
         report=new ExtentReports(
-        		"C:\\Users\\Gie\\Downloads\\STS\\Workspace\\Selenium\\target\\reports\\ToDoListReport.html",
+        		"C:\\Users\\Gie\\git\\TDL_Project\\target\\reports\\ToDoListReport.html",
         		true);
     }
 
@@ -220,14 +224,7 @@ public class WebAppTest{
 //
 //		WebAppTestSetup setup=new WebAppTestSetup(driver);
 //		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
-//		setup.getCreateFormBtn().click();
-//		setup.waitFor("createFormDiv");
-//		setup.createList("New List");
-//		setup.waitFor("displayDivRead");
-//		setup.getAddTaskBtn3().click();
-//		setup.waitFor("createItemSeparate");
-//		setup.createItemInList3("New Task", "no");
-//		setup.waitFor("displayDivRead");
+//		setup.createNewListAndTask();
 //
 //		test.log(LogStatus.INFO, "And when we click the edit item button");
 //		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
@@ -271,22 +268,19 @@ public class WebAppTest{
 //
 //		WebAppTestSetup setup=new WebAppTestSetup(driver);
 //		test.log(LogStatus.INFO, "When we create a new task called 'New Task to be deleted' that is not done");
-//		setup.getCreateFormBtn().click();
-//		setup.waitFor("createFormDiv");
-//		setup.createList("NewList");
-//		setup.waitFor("displayDivRead");
-//		setup.getAddTaskBtn3().click();
-//		setup.waitFor("createItemSeparate");
-//		setup.createItemInList3("New Task", "no");
-//		setup.waitFor("displayDivRead");
-//
+//		setup.createNewListAndTask();
 //		test.log(LogStatus.INFO, "And when we click the delete item 3 button");
-//		setup.getDeleteItem3Btn().click();
+//		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.id("DeleteItem3"))).click();
+//		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
+//		for (WebElement btn :btns) {
+//			System.out.println(btn.getAttribute("id")+ " : "+btn.getAttribute("onclick"));
+//		}
 //		setup.waitFor("displayDivRead");
+//		System.out.println(setup.getDisplayDivRead().getText());
 //		
 //		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
 //		String result = setup.getDisplayDivRead().getText();
-//		boolean deleted = !result.contains("New Task");
+//		boolean deleted = result.contains("No Tasks.");
 //		if (deleted) {
 //			test.log(LogStatus.PASS, "Item deleted successfully.");
 //		}else {
