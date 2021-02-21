@@ -40,11 +40,4 @@ public class ToDoList {
 	
 	 @OneToMany(mappedBy="tdList",fetch=FetchType.EAGER)
 	 @OnDelete(action=OnDeleteAction.CASCADE) private List<Item> items;
-	 
-
-	
-	
-
-
-	
 }

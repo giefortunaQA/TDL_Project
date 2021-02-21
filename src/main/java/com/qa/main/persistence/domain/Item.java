@@ -26,12 +26,6 @@ public class Item {
 	@NotNull
 	private boolean done;
 
-//	private String itemURL;
-//	private String description;
-//	@NotNull
-//	private enum category {
-//		beverages, bakery, canned, confectionary, dairy, fresh_meat, frozen, other, pantry, produce
-//	};
 
 	@ManyToOne
 	private ToDoList tdList = null;
