@@ -156,7 +156,6 @@ const updateSidebar = () => {
 						for (let record of data) {
 							addToSidebar(record);
 							sideBarList.appendChild(document.createElement("br"))
-
 						}
 					}
 					console.log("Sidebar updated.");
