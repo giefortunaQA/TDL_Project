@@ -37,14 +37,13 @@ public class WebAppTest {
 		report = new ExtentReports(
 				"C:\\Users\\Gie\\git\\TDL_Project\\target\\reports\\WebAppTestReport.html",
 				true);
-		
+		driver=new ChromeDriver();
 	}
 	@BeforeEach
 	public void beforeEach() {
 		System.setProperty(
 				"webdriver.chrome.driver",
 				"C:\\Users\\Gie\\git\\TDL_Project\\src\\test\\resources\\driver\\chromedriver.exe");
-		driver=new ChromeDriver();
 		driver.manage().window().setSize(new Dimension(1366, 768));
 	}
 
