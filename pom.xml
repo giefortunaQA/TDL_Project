@@ -134,26 +134,6 @@
 					<reportsDirectory>${project.test.result.directory}/surefire</reportsDirectory>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<!-- attached to Maven test phase -->
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -175,7 +155,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										com.qa.ims.Runner
+										com.qa.main.TdlApplication
 									</mainClass>
 								</manifest>
 							</archive>
