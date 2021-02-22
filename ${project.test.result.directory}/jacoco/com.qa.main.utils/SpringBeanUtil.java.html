@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpringBeanUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TDL</a> &gt; <a href="index.source.html" class="el_package">com.qa.main.utils</a> &gt; <span class="el_source">SpringBeanUtil.java</span></div><h1>SpringBeanUtil.java</h1><pre class="source lang-java linenums">package com.qa.main.utils;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
+
+import java.beans.PropertyDescriptor;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.BeanWrapperImpl;
+
+public class SpringBeanUtil {
+
+<span class="nc" id="L13">	private SpringBeanUtil() {</span>
+<span class="nc" id="L14">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+	public static void mergeNotNull(Object source, Object target) {
+<span class="fc" id="L18">		copyProperties(source, target, getNullPropName(source));</span>
+<span class="fc" id="L19">	}</span>
+
+	private static String[] getNullPropName(Object source) {
+<span class="fc" id="L22">		final BeanWrapperImpl wrappedSource = new BeanWrapperImpl(source);</span>
+<span class="fc" id="L23">		Set&lt;String&gt; propName = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">		for (PropertyDescriptor descriptor : wrappedSource.getPropertyDescriptors()) {</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">			if (wrappedSource.getPropertyValue(descriptor.getName()) == null)</span>
+<span class="fc" id="L26">				propName.add(descriptor.getName());</span>
+		}
+<span class="fc" id="L28">		return propName.toArray(new String[propName.size()]);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

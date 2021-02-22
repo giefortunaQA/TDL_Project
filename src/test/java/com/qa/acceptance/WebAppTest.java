@@ -3,14 +3,18 @@ package com.qa.acceptance;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,8 +50,8 @@ public class WebAppTest{
 	void beforeEach() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Gie\\git\\TDL_Project\\src\\test\\resources\\driver\\chromedriver.exe");
         driver = new ChromeDriver();
-        org.openqa.selenium.Dimension dim=new org.openqa.selenium.Dimension(1366, 768);
-        driver.manage().window().setSize(dim);;
+//        org.openqa.selenium.Dimension dim=new org.openqa.selenium.Dimension(1366, 768);
+        driver.manage().window().maximize();;
 	}
 	
  
@@ -212,9 +216,48 @@ public class WebAppTest{
 	}
 	
 
+	@Test
+	void testUpdateItem() throws InterruptedException {
+		test=report.startTest("Update Item Test");
+
+		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+		driver.get(WebAppTestSetup.URL);
+		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
+		WebAppTestSetup setup=new WebAppTestSetup(driver);
+		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
+		setup.createNewListAndTask();
+
+		test.log(LogStatus.INFO, "And when we click the edit item button");
+		moveAndClick(16,-42,0);
+		setup.waitFor("updateItemFormDiv");
+		
+		test.log(LogStatus.INFO, "And when we input updated details");
+		setup.updateItemInList3("Updated","yes");
+		setup.waitFor("displayDivRead");
+		
+		test.log(LogStatus.INFO, "Then - I should see this task with new name and marked done");
+		String resultBox = setup.getDisplayDivRead().getText();
+		WebElement resultItem=driver.findElement(By.tagName("strike"));
+		boolean checkUpdatedName=resultItem.getText().equals("Updated");
+		boolean checkUpdatedDone = resultItem.isDisplayed();
+		if (checkUpdatedDone) {
+			test.log(LogStatus.PASS, "Item marked done successfully.");
+		}else {
+			test.log(LogStatus.FAIL, "Item not striked.");
+		}
+		if(checkUpdatedName) {
+			test.log(LogStatus.PASS, "Item name updated successfully");
+		}else {
+			test.log(LogStatus.FAIL, "Found: "+resultBox+" instead");
+		}
+		assertTrue(checkUpdatedDone);
+		assertTrue(checkUpdatedName);
+	}
+	
 //	@Test
-//	void testUpdateItem() throws InterruptedException {
-//		test=report.startTest("Update Item Test");
+//	void testDeleteItem() throws InterruptedException {
+//		test=report.startTest("Delete Item Test");
 //
 //		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
 //		driver.get(WebAppTestSetup.URL);
@@ -223,56 +266,14 @@ public class WebAppTest{
 //		WebAppTestSetup setup=new WebAppTestSetup(driver);
 //		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
 //		setup.createNewListAndTask();
-//
-//		test.log(LogStatus.INFO, "And when we click the edit item button");
-//		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
-//		for (WebElement btn :btns) {
-//			System.out.println(btn.getAttribute("id")+ " : "+btn.getAttribute("onclick"));
-//		}
-//		setup.getEditItem3Btn();
-//		setup.waitFor("updateItemFormDiv");
 //		
-//		test.log(LogStatus.INFO, "And when we input updated details");
-//		setup.updateItemInList3("Updated","yes");
-//		setup.waitFor("displayDivRead");
-//		
-//		test.log(LogStatus.INFO, "Then - I should see this task with new name and marked done");
-//		String resultBox = setup.getDisplayDivRead().getText();
-//		WebElement resultItem=driver.findElement(By.tagName("strike"));
-//		boolean checkUpdatedName=resultItem.getText().equals("Updated");
-//		boolean checkUpdatedDone = resultItem.isDisplayed();
-//		if (checkUpdatedDone) {
-//			test.log(LogStatus.PASS, "Item marked done successfully.");
-//		}else {
-//			test.log(LogStatus.FAIL, "Item not striked.");
-//		}
-//		
-//		if(checkUpdatedName) {
-//			test.log(LogStatus.PASS, "Item name updated successfully");
-//		}else {
-//			test.log(LogStatus.FAIL, "Found: "+resultBox+" instead");
-//		}
-//		assertTrue(checkUpdatedDone);
-//		assertTrue(checkUpdatedName);
-//	}
-//	
-//	@Test
-//	void testDeleteItem() {
-//		test=report.startTest("Delete Item Test");
-//
-//		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
-//		driver.get(WebAppTestSetup.URL);
-//		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
-//
-//		WebAppTestSetup setup=new WebAppTestSetup(driver);
-//		test.log(LogStatus.INFO, "When we create a new task called 'New Task to be deleted' that is not done");
-//		setup.createNewListAndTask();
 //		test.log(LogStatus.INFO, "And when we click the delete item 3 button");
-//		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.id("DeleteItem3"))).click();
 //		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
-//		for (WebElement btn :btns) {
-//			System.out.println(btn.getAttribute("id")+ " : "+btn.getAttribute("onclick"));
+//		for (WebElement btn:btns) {
+//			System.out.println(btn.getAttribute("id")+ " " + btn.getLocation());
 //		}
+//		moveAndClick(btns.get(15),42,0);
+//		
 //		setup.waitFor("displayDivRead");
 //		System.out.println(setup.getDisplayDivRead().getText());
 //		
@@ -287,6 +288,12 @@ public class WebAppTest{
 //		assertTrue(deleted);
 //	}
 
+	
+	public void moveAndClick(int index,int xOff,int yOff) {
+		Actions actions=new Actions(driver);
+		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
+		actions.moveToElement(btns.get(index),xOff,yOff).click().perform();
+	}
 	@AfterEach
 	void afterEach() {
 		driver.close();
