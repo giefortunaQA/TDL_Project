@@ -39,7 +39,7 @@ To start the application, execute the .jar file:
 ```
 java -jar TDL-0.0.1-SNAPSHOT.war
 ```
-When the Spring application is started (cmd will have "Completed initialization in 1 ms"), go to http://localhost:9090/ to access the web application.
+When the Spring application is started, go to http://localhost:9090/ to access the web application. To access the h2 database, go to http://localhost:9090/h2-console/.
 
 The above can also be ran without cloning the whole repository. Simply download the .jar file and run the same line, given you're in the directory where file is downloaded to.
 
