@@ -35,26 +35,26 @@ Then, change the directory to your local git repository:
 cd ..\TDL_Project
 ```
 
-To start the application, execute the .jar file:
+To start the application, execute the .war file:
 ```
 java -jar TDL-0.0.1-SNAPSHOT.war
 ```
 When the Spring application is started, go to http://localhost:9090/ to access the web application. To access the h2 database, go to http://localhost:9090/h2-console/.
 
-The above can also be ran without cloning the whole repository. Simply download the .jar file and run the same line, given you're in the directory where file is downloaded to.
+The above can also be ran without cloning the whole repository. Simply download the .war file and run the same line, given you're in the directory where file is downloaded to.
 
 Alternaltively, the web app can be launched my opening the index.html file in src/main/resources/static after cloning the repo.
 
 ### Running the tests
 
-Before running the tests, make sure the spring boot application is not running. Simply exit the command line and reopen another cmd window. This is because both test and development use the same port 9090. To run the JUnit tests in this Maven package, simply change the directory to ..\20DecSDET2-IMS-Starter and execute
+Before running the tests, make sure the spring boot application is not running. Simply exit the command line and reopen another cmd window. This is because both test and development use the same port 9090. To run the JUnit tests in this Maven package, simply change the directory to ..\TDL_Project and execute
 ```
 mvn test
 ```
 
 ## Mockito Unit Tests 
 
-These tests confirm that each method,without their dependencies, returns the correct/expected value using assertions and mockings. 
+These tests confirm that each method,without worrying about their dependencies, returns the correct/expected value using assertions and mockings. 
 
 ```
 Example:
@@ -127,7 +127,7 @@ Here, MockMvc and its methods were utilised to send the request and check the re
 ## Acceptance Tests with Selenium
 These tests mock a user's interaction with the front-end and asserts that the interaction was successful or otherwise by checking the contents/results of the mock activity.
 We use Chrome Driver to retrieve elements of the page and facilitate the actions in the tests. 
-At the and of all the tests, an extent report is created in the /target/reports/ folder. This displays the acceptance criteria alongside test failures/successes logically.
+At the end of all the tests, an extent report is created in the /target/reports/ folder. This displays the acceptance criteria alongside test failures/successes logically.
 
 ```Example
 	@Test
