@@ -54,9 +54,7 @@ public class ToDoListService {
 		return !this.repo.existsById(id);
 	}
 	
-	public ToDoListDto findLatest() {
-		return this.mapToTDLDto(this.repo.findLatestId());
-	}
+
 	
 	
 }

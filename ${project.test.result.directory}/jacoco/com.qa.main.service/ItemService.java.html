@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TDL</a> &gt; <a href="index.source.html" class="el_package">com.qa.main.service</a> &gt; <span class="el_source">ItemService.java</span></div><h1>ItemService.java</h1><pre class="source lang-java linenums">package com.qa.main.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.qa.main.dto.ItemDto;
+import com.qa.main.persistence.domain.Item;
+import com.qa.main.persistence.repo.ItemRepo;
+import com.qa.main.utils.SpringBeanUtil;
+
+@Service
+public class ItemService {
+	private ItemRepo repo;
+
+	private ModelMapper mapper;
+
+	private ItemDto mapToIDto(Item item) {
+<span class="fc" id="L22">		return this.mapper.map(item, ItemDto.class);</span>
+	}
+
+	@Autowired
+	public ItemService(ItemRepo repo, ModelMapper mapper) {
+<span class="fc" id="L27">		super();</span>
+<span class="fc" id="L28">		this.repo = repo;</span>
+<span class="fc" id="L29">		this.mapper = mapper;</span>
+<span class="fc" id="L30">	}</span>
+
+	public ItemDto create(Item item) {
+<span class="fc" id="L33">		return this.mapToIDto(this.repo.save(item));</span>
+	}
+
+	public List&lt;ItemDto&gt; readAll() {
+<span class="fc" id="L37">		return this.repo.findAll().stream().map(this::mapToIDto).collect(Collectors.toList());</span>
+	}
+
+	public ItemDto readById(Long id) {
+<span class="fc" id="L41">		return this.mapToIDto(this.repo.findById(id).orElseThrow());</span>
+	}
+
+	public ItemDto update(ItemDto itemDto, Long id) {
+<span class="fc" id="L45">		Item calledItem = this.repo.findById(id).orElseThrow();</span>
+<span class="fc" id="L46">		calledItem.setName(itemDto.getName());</span>
+<span class="fc" id="L47">		SpringBeanUtil.mergeNotNull(itemDto, calledItem);</span>
+<span class="fc" id="L48">		return this.mapToIDto(this.repo.save(calledItem));</span>
+	}
+	
+	public boolean delete(Long id) {
+<span class="fc" id="L52">		this.repo.deleteById(id);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		return !this.repo.existsById(id);</span>
+	}
+
+	public List&lt;ItemDto&gt; findItemsInList(Long listId){
+<span class="fc" id="L57">		return this.repo.findItemsInList(listId).stream().map(this::mapToIDto).collect(Collectors.toList());</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

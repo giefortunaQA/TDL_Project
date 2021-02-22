@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ToDoListController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TDL</a> &gt; <a href="index.source.html" class="el_package">com.qa.main.controller</a> &gt; <span class="el_source">ToDoListController.java</span></div><h1>ToDoListController.java</h1><pre class="source lang-java linenums">package com.qa.main.controller;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.qa.main.dto.ToDoListDto;
+import com.qa.main.persistence.domain.ToDoList;
+import com.qa.main.service.ToDoListService;
+
+@RestController
+@CrossOrigin
+@RequestMapping(&quot;/toDoList&quot;)
+public class ToDoListController {
+	private ToDoListService service;
+
+	@Autowired
+	public ToDoListController(ToDoListService service) {
+<span class="fc" id="L31">		super();</span>
+<span class="fc" id="L32">		this.service = service;</span>
+<span class="fc" id="L33">	}</span>
+
+	@PostMapping(&quot;/create&quot;)
+	public ResponseEntity&lt;ToDoListDto&gt; create(@RequestBody ToDoList tdList) {
+<span class="fc" id="L37">		ToDoListDto created = this.service.create(tdList);</span>
+<span class="fc" id="L38">		return new ResponseEntity&lt;&gt;(created, HttpStatus.CREATED);</span>
+	}
+	@GetMapping(&quot;/read&quot;)
+	public ResponseEntity&lt;List&lt;ToDoListDto&gt;&gt; readAll(){
+<span class="fc" id="L42">		return ResponseEntity.ok(this.service.readAll());</span>
+	}
+	
+	@GetMapping(&quot;/read/{id}&quot;)
+	public ResponseEntity&lt;ToDoListDto&gt; readById(@PathVariable Long id){
+<span class="fc" id="L47">		return ResponseEntity.ok(this.service.readById(id));</span>
+	}
+	
+	@PutMapping(&quot;/update/{id}&quot;)
+	public ResponseEntity&lt;ToDoListDto&gt; update(@PathVariable Long id,@RequestBody ToDoListDto toDoListDto){
+<span class="fc" id="L52">		return new ResponseEntity&lt;&gt;(this.service.update(toDoListDto, id),HttpStatus.ACCEPTED);</span>
+	}
+	
+	@DeleteMapping(&quot;/delete/{id}&quot;)
+	public ResponseEntity&lt;ToDoListDto&gt; delete(@PathVariable Long id) {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">		return this.service.delete(id) ? new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT)</span>
+<span class="fc" id="L58">				: new ResponseEntity&lt;&gt;(HttpStatus.INTERNAL_SERVER_ERROR);</span>
+	}
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

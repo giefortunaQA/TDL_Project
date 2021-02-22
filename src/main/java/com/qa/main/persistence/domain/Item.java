@@ -5,8 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,12 +25,6 @@ public class Item {
 	@NotNull
 	private boolean done;
 
-//	private String itemURL;
-//	private String description;
-//	@NotNull
-//	private enum category {
-//		beverages, bakery, canned, confectionary, dairy, fresh_meat, frozen, other, pantry, produce
-//	};
 
 	@ManyToOne
 	private ToDoList tdList = null;
