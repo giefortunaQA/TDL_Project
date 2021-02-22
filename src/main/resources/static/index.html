@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>To Do List</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+	<button class="openbtn btn btn-light" id="openPanel" onclick="openNav()">&#9776;</button>
+
+
+	<div class="row">
+		<div class="panelContainer col-3">
+
+			<div id="mySidepanel" class="sidepanel">
+				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<p>
+					<button class="btn" onclick="readAllLists()">
+						<img src="./img/eyeglasses.svg" alt="read">
+						Show all lists
+					</button>
+				</p>
+				<p>
+					<button type="submit" onclick="onlyShow(createFormDiv)" class="btn formBtn">
+						<img src="./img/plus-circle.svg" alt="plus"> New list
+					</button>
+				</p>
+				<p>
+					<hr class="dropdown-divider">
+				</p>
+				<h4>
+					Your Lists
+					<button class="btn  refreshBtn" onclick="updateSidebar()">
+						<img src="./img/clock-history.svg" alt="refresh">
+					</button>
+				</h4>
+				<i style="color:grey"> (id) : (List Name)</i>
+				<div class=sideBarList>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-8">
+			<header>
+				<h1>To Do List</h1>
+			</header>
+			<div class="container">
+				<!-- CREATE CARD -->
+				<div class="card" id="createFormDiv">
+					<button type="reset" onclick="hide(createForm)" class="btn formBtn">
+						<img src="./img/x.svg" alt="close">
+					</button>
+					<form id="createForm">
+						<span>
+							<input type="text" class="form-control" id="name" placeholder="Task Title">
+							<button type="button" class="btn btn-light formBtn pull-right" onclick="createList()">
+								<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
+							</button></span>
+					</form>
+
+					<div id="createItemDiv" class="msg" placeholder="No Tasks">
+					</div>
+
+				</div>
+
+				<!-- READ CARD -->
+				<div class="card" id="displayDivRead">
+				</div>
+
+				<!-- UPDATE CARD -->
+				<div class="card" id="updateFormDiv">
+					<h3>Update list name</h3>
+					<form id="updateForm">
+						<input type="text" class="form-control" id="nameUpdate">
+						<button type="button" class="btn btn-light formBtn" id="updateBtn">
+							<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
+						</button>
+					</form>
+					<div id="displayDivUpdate">
+					</div>
+				</div>
+				<!-- DELETE CARD -->
+				<div id="displayDivDelete" class="card msg">
+				</div>
+
+				<!-- CREATE ITEM SEPARATE -->
+				<div class="card" id="createItemSeparate" style="display: none;">
+					<input type="text" id="listId" style="display: none;">
+					<input type="text" id="itemName" placeholder="New task">
+					<input type="text" id="itemDone" placeholder="Done? yes or no">
+					<button type="button" class="btn formBtn" onclick="createItem()">
+						<img src="./img/check2.svg" alt="New Task" tooltip="Add new task">
+					</button>
+				</div>
+				<!-- UPDATE ITEM -->
+				<div class="card" id="updateItemFormDiv">
+					<h3>Update task</h3>
+					<form id="updateItemForm">
+						<input type="text" id="itemId">
+						<input type="text" id="itemNameUpdate">
+						<input type="text" id="itemDoneUpdate" placeholder="Done? yes or no">
+						<button type="button" class="btn formBtn">
+							<img src="./img/check2.svg" alt="update" tooltip="Update Task" id="updateItemBtn">
+						</button>
+					</form>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	</div>
+	<script src="tdl.js"></script>
+	<script src="item.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+.col{
+    border: solid 5px;
+    padding:10px;
+    background-color: blanchedalmond;
+    border-radius: 10px;
+    margin: 10px;
+}
+h1{
+    text-align: center;
+}
+
+.card{
+    padding:10px;
+    margin: 10px;
+    background-color:wheat ;
+    border-radius: 10px;
+    display: none;
+}
+
+.msgToUser{
+    padding:10px;
+    margin: 10px;
+    color: green;
+    font-weight: bold;
+
+}
+
+.keys{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.right{
+    position: initial;
+    right:20px;
+}
+
+.sidepanel .closebtn {
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+
+.container{
+    margin:10px;
+    padding:10px;
+    border-radius: 5px;
+}
+
+.panelContainer{
+    background-color:transparent;
+    height: 100%;
+}
+
+h3{
+    color:rgba(19, 17, 17, 0.658);
+    
+}
+
+.noBg{
+    background-color: transparent;
+}
+
+.sidepanel {
+    padding-left: 20px;
+    height: 1000px;
+    width: 275px; 
+    position: fixed; 
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(233, 202, 177);
+    overflow-x: hidden; 
+    padding-top: 10px; 
+    margin-top: 5px;
+    transition: 0.5s;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+ 
+
+  #openPanel{
+      margin-left:20px;
+      background-color: rgb(233, 202, 177);
+      margin: 20px;
+  }
+
+  .btn-link{
+      color:rgb(27, 21, 21);
+  }
+  /* .btn-link:hover{
+      color:grey
+  } */
+
+.done{
+    text-decoration: line-through;
+}
