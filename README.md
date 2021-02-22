@@ -127,7 +127,7 @@ Here, MockMvc and its methods were utilised to send the request and check the re
 ## Acceptance Tests with Selenium
 These tests mock a user's interaction with the front-end and asserts that the interaction was successful or otherwise by checking the contents/results of the mock activity.
 We use Chrome Driver to retrieve elements of the page and facilitate the actions in the tests. 
-At the and of all the tests, an extent report is created in the /target/reports/extentreports folder. This displays the acceptance criteria alongside test failures/successes logically.
+At the and of all the tests, an extent report is created in the /target/reports/ folder. This displays the acceptance criteria alongside test failures/successes logically.
 
 ```Example
 	@Test
