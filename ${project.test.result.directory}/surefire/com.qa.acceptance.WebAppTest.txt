@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.qa.acceptance.WebAppTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.491 s - in com.qa.acceptance.WebAppTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 39.63 s - in com.qa.acceptance.WebAppTest

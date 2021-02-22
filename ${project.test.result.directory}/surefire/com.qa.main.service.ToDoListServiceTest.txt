@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.qa.main.service.ToDoListServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.987 s - in com.qa.main.service.ToDoListServiceTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.165 s - in com.qa.main.service.ToDoListServiceTest
