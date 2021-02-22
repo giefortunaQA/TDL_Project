@@ -1,4 +1,4 @@
-Coverage:  (Sonarqube)
+Coverage: 62.4%  (Sonarqube) | 67.6% (JUnit: src/main/java)
 ## TO DO LIST WEB APP PROJECT 
 
 This application consists of an API built with Spring Boot using Java and a frontend created with HTML,CSS and JavaScript.
@@ -24,29 +24,30 @@ git clone https://github.com/giefortunaQA/TDL_Project.git
 
 ## Deployment
 
-There is a "TDL-0.0.1-jar-with-dependencies.jar" file which is executable from your command line. 
+There is a "TDL-0.0.1-SNAPSHOT.war" file which is executable from your command line. 
 Before doing anything, make sure you have the right version of Java by running in your command line:
 ```
 java -version
 ```
 
-Then, change the directory to your local git repository and in the target directory:
+Then, change the directory to your local git repository:
 ```
-cd ..\TDL_Project\target
+cd ..\TDL_Project
 ```
 
 To start the application, execute the .jar file:
 ```
-java -jar TDL-0.0.1-jar-with-dependencies.jar
+java -jar TDL-0.0.1-SNAPSHOT.war
 ```
+When the Spring application is started (cmd will have "Completed initialization in 1 ms"), go to http://localhost:9090/ to access the web application.
 
 The above can also be ran without cloning the whole repository. Simply download the .jar file and run the same line, given you're in the directory where file is downloaded to.
 
-Alternaltively, the web app can be launched my opening the index.html file in src/main/resources/static.
+Alternaltively, the web app can be launched my opening the index.html file in src/main/resources/static after cloning the repo.
 
 ### Running the tests
 
-To run the JUnit tests in this Maven package, simply change the directory to ..\20DecSDET2-IMS-Starter and execute
+Before running the tests, make sure the spring boot application is not running. Simply exit the command line and reopen another cmd window. This is because both test and development use the same port 9090. To run the JUnit tests in this Maven package, simply change the directory to ..\20DecSDET2-IMS-Starter and execute
 ```
 mvn test
 ```
@@ -167,4 +168,4 @@ All the versions of this project is in Github https://github.com/giefortunaQA/TD
 
 ## Acknowledgments
 
-*Thanks to Peter and Peprah
+*Thanks to Peter and Peprah for their great company and help.
