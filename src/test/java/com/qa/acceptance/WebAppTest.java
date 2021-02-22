@@ -255,38 +255,32 @@ public class WebAppTest{
 		assertTrue(checkUpdatedName);
 	}
 	
-//	@Test
-//	void testDeleteItem() throws InterruptedException {
-//		test=report.startTest("Delete Item Test");
-//
-//		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
-//		driver.get(WebAppTestSetup.URL);
-//		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
-//
-//		WebAppTestSetup setup=new WebAppTestSetup(driver);
-//		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
-//		setup.createNewListAndTask();
-//		
-//		test.log(LogStatus.INFO, "And when we click the delete item 3 button");
-//		List<WebElement> btns=driver.findElements(By.className("btn")).stream().collect(Collectors.toList());
-//		for (WebElement btn:btns) {
-//			System.out.println(btn.getAttribute("id")+ " " + btn.getLocation());
-//		}
-//		moveAndClick(btns.get(15),42,0);
-//		
-//		setup.waitFor("displayDivRead");
-//		System.out.println(setup.getDisplayDivRead().getText());
-//		
-//		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
-//		String result = setup.getDisplayDivRead().getText();
-//		boolean deleted = result.contains("No Tasks.");
-//		if (deleted) {
-//			test.log(LogStatus.PASS, "Item deleted successfully.");
-//		}else {
-//			test.log(LogStatus.FAIL, "Found: "+ result+"instead.");
-//		}
-//		assertTrue(deleted);
-//	}
+	@Test
+	void testDeleteItem() throws InterruptedException {
+		test=report.startTest("Delete Item Test");
+
+		test.log(LogStatus.INFO, "Given - we can access the To Do List webpage");
+		driver.get(WebAppTestSetup.URL);
+		new WebDriverWait(driver,2).until(ExpectedConditions.attributeContains(By.id("mySidepanel"), "width", "275px"));
+
+		WebAppTestSetup setup=new WebAppTestSetup(driver);
+		test.log(LogStatus.INFO, "When we create a new task called 'New Task' that is not done");
+		setup.createNewListAndTask();
+		
+		test.log(LogStatus.INFO, "And when we click the delete item 3 button");
+		moveAndClick(14,3,38);
+		setup.waitFor("displayDivRead");
+		System.out.println(setup.getDisplayDivRead().getText());
+		test.log(LogStatus.INFO, "Then - I should see the update list without this item");
+		String result = setup.getDisplayDivRead().getText();
+		boolean deleted = result.contains("No tasks");
+		if (deleted) {
+			test.log(LogStatus.PASS, "Item deleted successfully.");
+		}else {
+			test.log(LogStatus.FAIL, "Found: "+ result+"instead.");
+		}
+		assertTrue(deleted);
+	}
 
 	
 	public void moveAndClick(int index,int xOff,int yOff) {
